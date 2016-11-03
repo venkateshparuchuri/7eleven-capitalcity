@@ -1,0 +1,25 @@
+{{#each factorValues}}
+  <tr class="">
+    <td class="mytable">{{factor_value}} % <a href="#" class="js-factor-delete" data-factor-id="{{factor_id}}"><i class="fa fa-trash pull-right" ></i></a></td>
+    <td class="mytable">
+      {{#arrayLength stores.length 5}}
+        {{#eachItem stores}}
+          <button type="button" class="btn btn-success btn--tag js-store-detatch-build_factor" data-store-id="{{store_id}}">Store {{store_id}} <i class="fa fa-times-circle"></i></button>
+        {{/eachItem}}
+        {{else}}
+          {{#each stores}}
+            <button type="button" class="btn btn-success btn--tag js-store-detatch-build_factor" data-store-id="{{store_id}}">Store {{store_id}} <i class="fa fa-times-circle"></i></button>
+          {{/each}}
+      {{/arrayLength}}
+      <span class="dropdown">
+                <button class="btn btn-default btn--tag dropdown-toggle js-add-new-store" type="button"
+                        id="dropdownMenu" data-factor-id="{{factor_id}}">
+                    <i class="fa fa-plus"></i> Add Store
+                </button>
+            </span>
+      {{#arrayLength stores.length 5}}
+        <span>.......</span><a href="#" id="js-viewMoreBuildToStores">View All Stores</a>
+      {{/arrayLength}}
+    </td>
+  </tr>
+{{/each}}

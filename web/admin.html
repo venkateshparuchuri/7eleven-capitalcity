@@ -1,0 +1,1821 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard for super users to access the store data reports.">
+  <meta name="author" content="">
+  <title>Admin</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="dist/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <!-- <button class="btn menu-button" style="position: absolute; z-index: 22;">Click here</button> -->
+  <div class="container-fluid no-left-padding">
+    <aside class="slideInLeft animated">
+      <div class="aside--logo">
+        <a href="/admin.html">
+          <img src="images/capitalcity_logo.png" alt="">
+        </a>
+      </div>
+      <ul class="aside-nav nav js-side-nav admin-side-nav-override">
+        <form class="form-group storelist">
+          <select class="form-control js-select-store" id="js-select-store">
+            <option value="0">Select a Store</option>
+          </select>
+        </form>
+        <li><a href="#" id="js-ordermanage">Order Management</a></li>
+        <li><a href="#" id="js-admin-settings">Settings</a></li>
+        <li><a href="#" data-toggle="tab" data-type="reports" id="js-admin-ccWorkbooks">Monthly CC Workbooks</a></li>
+        <li><a href="#" data-toggle="expand" data-target="#sub1" id="js-reports-main"> <span id="store-name">()</span> Reports</a>
+
+          <ul class="nav expand admin-side-nav js-side-sub-nav " id="sub1">
+            <li class="js-admin-main-nav active"><a href="#" data-url="anticipatedsales">Anticipated Sales</a></li>
+            <li class="js-admin-main-nav" id="js-admin-pullover"><a href="#" data-url="pulloversheets">Pullover Sheet</a></li>
+            <li class="js-admin-main-nav"><a href="#" data-url="temperature">Temperature</a></li>
+            <li class="js-admin-main-nav"><a href="#" data-url="thresholdreport">Waste Threshold</a></li>
+            <li class="js-admin-main-nav"><a href="#" data-url="waste">Waste Cost</a></li>
+            <li class="js-admin-main-nav"><a href="#" data-url="inspection">Performance Surveys</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="acc-info">
+        <div class="dropdown">
+          <button class="btn btn--account dropdown-toggle" id="js-user-name" type="button" data-toggle="dropdown">
+            <!--&dtrif;--><i class="fa fa-caret-up"></i>
+            <small id="js-user-role"> Admin </small>
+          </button>
+          <ul class="dropdown-menu dropup">
+            <!--<li><a href="#" data-toggle="modal" data-target="#accountinfo">Account Info</a></li>-->
+            <li><a href="#" id="js-admin-logout">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+    <div class="modal fade" id="accountinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Your Account Information</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Full Name</label>
+                <div class="col-sm-6">
+                  <p class="form-control-static">John Milton</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label">User Name</label>
+                <div class="col-sm-6">
+                  <p class="form-control-static">John</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Password</label>
+                <div class="col-sm-6">
+                  <p class="form-control-static">joHn125</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Role</label>
+                <div class="col-sm-6">
+                  <p class="form-control-static">Accountant</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Email</label>
+                <div class="col-sm-6">
+                  <p class="form-control-static">john@gmail.com</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row js-store-main-div js-admin-main-div">
+      <div class="col-lg-offset-4 col-lg-8 col-md-8 col-md-offset-4 adm-selectstore-hide" id="js-selectstore-hide">
+        <h3>Please Select a Store from the left Pane.</h3>
+      </div>
+    </div>
+    <div class="row js-admin-order-management-div js-admin-main-div" style="display:none;">
+      <div class="order-mgmt">
+        <div class="col-md-8 col-md-offset-3">
+          <iframe id="js-order-management-site" src="https://shop.benekeith.com/#/register/" frameBorder="0" align="right"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="row js-admin-wastage-div js-admin-main-div" style="display:none">
+      <main class="col-lg-9 col-md-9">
+        <header class="main--header">
+          <h3>Waste Cost</h3>
+          <div class="main--subnav">
+            <ul class="nav nav-tabs js-wastage-main-nav">
+              <li class="active" id="js-capital-finishedgoods"><a data-toggle="tab" data-type="category" data-value="Finished Goods" href="#home">Finished Goods</a></li>
+              <li id="js-capital-ingredients"><a data-toggle="tab" data-type="category" data-value="Ingredients" href="#menu1">Ingredients</a></li>
+              <li id="js-roller-finishedgoods"><a data-toggle="tab" data-type="category" data-value="Roller Grill Finished Goods" href="#">Roller Grill Products</a></li>
+              <li id="js-roller-ingredients"><a data-toggle="tab" data-type="category" data-value="Roller Grill Ingredients" href="#">Roller Grill Ingredients</a></li>
+              <li id="js-fresh-products"><a data-toggle="tab" data-type="category" data-value="Perishable Goods" href="#">Perishable Goods</a></li>
+            </ul>
+          </div>
+        </header>
+        <div class="main--content">
+          <div class="main--tabs">
+            <div class="row">
+              <div class="col-md-9 dropdown">
+                <a href="#" class="btn btn-default dropdown-toggle" id="js-dropdown-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weekly
+                                <span class="caret"></span></a>
+                <ul class="dropdown-menu js-wastage-reports-stats">
+                  <li class="active"><a href="#">Weekly</a></li>
+                  <li><a href="#">Monthly</a></li>
+                  <li><a href="#">Daily</a></li>
+                  <li><a href="#">Custom</a></li>
+                </ul>
+                <span class="margin_left js-report-text">Reports from 1-7 October, 2015</span>
+              </div>
+              <div class="col-lg-2 col-md-3">
+                <button class="btn btn--action btn-block js-getreport-by-date">Run Report</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-display">
+            <div class="row">
+              <div class="col-md-2">
+                <h3>
+                  <small>Total Waste</small>
+                  <br/>
+                  <span id="total-finished-goods"></span>
+                </h3>
+              </div>
+              <div class="col-md-2">
+                <h3>
+                  <small>Total Waste Cost</small>
+                  <br/>
+                  <span class="font14">$</span>
+                  <span id="total-finished-goods-cost"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="js-admin-temperature-div js-admin-main-div" style="display:none">
+      <div class="row">
+        <main class="col-lg-9 col-md-9">
+          <header class="main--header">
+            <div class="main--title">Temperature Report - <span id="js-temperature-today-day"></span>
+              <div class="something pull-right">
+                <span class="fa fa-calendar"></span>
+                <input class="date-pick" id="js-today-date-admin-tmp" type="text" name="datetime" readonly="readonly" />
+                <!-- <span class="fa fa-sort-desc fa-2x"></span> -->
+              </div>
+            </div>
+            <div class="main--subnav">
+              <ul class="nav nav-tabs js-temp-main-nav">
+                <li class="active" id="js-capitalCity-product"><a data-toggle="tab" data-type="category" data-value="Product" href="#home">Product</a></li>
+                <li id="js-capitalCity-equipment"><a data-toggle="tab" data-type="category" data-value="Equipment" href="#menu1">Equipment</a></li>
+                <li id="js-temp-rollerGrillProducts-li"><a data-value="Roller Grill Products" href="#">Roller Grill Products</a></li>
+                <li id="js-temp-freshProducts-li"><a data-value="Perishable Goods" href="#">Perishable Goods</a></li>
+              </ul>
+            </div>
+          </header>
+          <div class="main--content">
+            <div class="main--tabs">
+              <div class="row">
+                <div class="col-md-8">
+                  <ul class="nav nav-pills js-temp-sub-nav">
+                    <li data-value="Open" class="active"><a href="">Open</a></li>
+                    <li data-value="Peak"><a href="">Peak</a></li>
+                    <li data-value="Breakdown"><a href="">Breakdown</a></li>
+                  </ul>
+                  <ul class="nav nav-pills js-temp-roller-sub-nav"></ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-md-offset-2">
+                  <!--     <button class="btn btn--reports btn-block">View Reports</button> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="nav nav-pills js-temp-perishable-sub-nav">
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive temperature">
+              <table class="table">
+                <thead>
+                  <tr class="js-temp-head">
+                    <th>Item Name
+                      <br/>
+                    </th>
+                    <th>Temp
+                      <br/>
+                    </th>
+                    <th>Initials
+                      <br/>
+                    </th>
+                    <th>Time
+                      <br/>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="js-temp-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <div class="js-admin-main-div js-admin-inspection-div" style="display:none">
+      <div class="row">
+        <main class="col-lg-9 col-md-9">
+          <header class="main--header">
+            <h3>Performance Surveys</h3>
+            <!-- <div class="main--title">Health Inspection: Think food safety</div> -->
+          </header>
+          <div class="main--content">
+            <div class="main--tabs" id="survey-tabs-main">
+
+              <!-- <div class="row">
+                <div class="col-md-6">
+                  <!-- <a href="#" class="btn btn-default dropdown-toggle" id="js-dropdown-inspection-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">October <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-inspect-menu">
+                                    <li><a href="#">January</a></li>
+                                    <li><a href="#">February</a></li>
+                                    <li><a href="#">March</a></li>
+                                    <li><a href="#">April</a></li>
+                                    <li><a href="#">May</a></li>
+                                    <li><a href="#">June</a></li>
+                                    <li><a href="#">July</a></li>
+                                    <li><a href="#">August</a></li>
+                                    <li><a href="#">September</a></li>
+                                    <li><a href="#">October</a></li>
+                                    <li><a href="#">November</a></li>
+                                    <li><a href="#">December</a></li>
+                                </ul>
+                                <span class="margin_left">Reports from October, 2015</span>
+                </div>
+                <div class="col-lg-2 col-md-3 col-md-offset-3">
+                  <button class="btn btn--action btn-block" id="js-inspection-run-report">Run Report
+                  </button>
+                </div>
+              </div> -->
+            </div>
+            <!-- <br>
+            <br> -->
+
+            <div class="main--content">
+              <div class="main--tabs">
+                <div class="row js-admin-performance-div">
+                  <div class="col-md-2 js-performence-dropdown">
+                    <select class="form-control" id="js-dropdown-button1">
+                      <option value="Daily">Daily</option>
+                      <option value="Weekly">Weekly</option>
+                      <option value="Monthly">Monthly</option>
+                      <option value="Custom">Custom</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <span class="margin_left js-search-report-text"></span>
+                  </div>
+                  <div class="col-md-2 js-search-report">
+                    <button class="btn btn--action btn-block js-get-searchreport-by-date">Run Report</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table--content js-inspect-table-list">
+              <table class="table table-bordered table-hover js-inspect-table-list" id="table_id">
+                <thead>
+                  <tr>
+                    <th>Store ID</th>
+                    <th class="">Inspected By</th>
+                    <th class="">Store Address</th>
+                    <th class="">Inspection Date</th>
+                    <th class="">Score
+                      <br/>
+                    </th>
+                    <th class="">Status</th>
+                    <th class=""></th>
+                  </tr>
+                </thead>
+                <tbody class="js-inspection-results-body" id="js-inspection-results-body-id">
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="btn btn-success pull-right" onclick="backtoSurveys()" id="backtoSurveys" style="display:none;">BACK</div>
+              <div class="categories-content-div"></div>
+            </div>
+          </div>
+      </div>
+      </main>
+    </div>
+    <div class="row js-inspection-details-div" style="display:none">
+      <main class="col-lg-9 col-md-9">
+        <header class="main--header">
+          <div class="main--title">
+            Inspection Reports
+            <div class="something pull-right">
+              <button type="button" class="btn btn--action btn-block" id="js-back-to-inspects" name="Back">Back
+              </button>
+            </div>
+          </div>
+          <div class="main--subtitle">
+            <div class="row">
+              <div class="col-md-9">Inspection Managed by
+                <span class="js-inspection-manager"></span>
+              </div>
+              <div class="col-md-3 text-right">Total score:
+                <span class="js-inspection-result-score"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="accordion">
+          <div class="panel-group js-inspection-details-body" id="accordion" role="tablist" aria-multiselectable="true">
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="row js-admin-main-div js-admin-antispated-div" style="display:none">
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title">Anticipated Sales -
+          <span id="js-antispected-today-day"></span>
+          <div class="something pull-right">
+            <p>
+              <span id="js-antispected-today-day"></span>
+            </p>
+            <span class="fa fa-calendar"></span>
+            <input class="date-pick" id="js-antispected-today-date" type="text" name="datetime" readonly="readonly" />
+            <!--  <span class="fa fa-sort-desc fa-2x"></span> -->
+          </div>
+        </div>
+        <div class="tabs-store">
+          <ul class="nav nav-tabs js-store-nav">
+            <li data-value="capitalCity" class="active" id="js-antispected-capitalcity"><a data-profile_name="capitalCity" data-value="capitalCity" href="#" onclick="buildto('2')">Capital City</a></li>
+            <li data-value="rollerGrills" id="js-antispected-roller"><a data-value="rollerGrills" data-profile_name="rollerGrills" href="#" onclick="buildtoRollerGrill('7')">Roller Grills</a></li>
+            <li data-value="Perishable Goods" id="js-antispected-freshproducts"><a data-value="Perishable Goods" data-profile_name="Perishable Goods" href="#" onclick="buildtoFreshproducts('8')">Perishable Goods</a></li>
+          </ul>
+        </div>
+      </header>
+      <div class="main--content">
+        <div class="main--tabs">
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="nav nav-pills js-antispated-sub-nav">
+                <li data-value="Breakfast" class="active"><a data-value="Breakfast" href="">Breakfast</a></li>
+                <li data-value="Lunch"><a data-value="Lunch" href="">Lunch</a></li>
+                <li data-value="Dinner"><a data-value="Dinner" href="">Dinner/Snacks</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 col-md-offset-3">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="leftArrow" class="leftArrowRollerGrills"><i class="fa fa-chevron-left fa-3x"></i></div>
+          <div id="rightArrow" class="rightArrowRollerGrills pull-right"><i class="fa fa-chevron-right fa-3x"></i></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="nav nav-pills js-perishable-sub-nav">
+              <li data-value="DBQ" class="active"><a data-value="DBQ" href="#">DBQ</a></li>
+              <li data-value="Core-Mark"><a data-value="Core-Mark" href="#">Core-Mark</a></li>
+              <li data-value="Commissary"><a data-value="Commissary" href="#">Commissary</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="table-responsive build-table js-table-reponsive">
+          <table class="table">
+            <thead>
+              <tr class="js-buildto-head"></tr>
+            </thead>
+            <tbody class="js-buildto-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="js-admin-pullover-div js-admin-main-div" style="display:none">
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title">Pullover sheets -
+          <span id="js-pullover-today-day"></span>
+          <div class="something pull-right">
+            <p>
+              <span id="js-pullover-today-day"></span>
+            </p>
+            <span class="fa fa-calendar"></span>
+            <input class="date-pick" id="js-pullover-today-date" type="text" name="datetime" readonly="readonly" />
+          </div>
+        </div>
+        <div class="tabs-store">
+          <ul class="nav nav-tabs js-pullover-maintabs">
+
+          </ul>
+        </div>
+      </header>
+      <div class="main--content js-roller-maincontent">
+        <ul class="nav nav-pills js-temp-pullsheet-sub-nav"></ul>
+        <div class="table-responsive">
+          <table class="table js-pulloversheets">
+            <thead class="js-pullover-timeslots"></thead>
+            <tbody class="js-pullover-values"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="row js-admin-main-div js-admin-threshold-div" style="display:none">
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title">Waste Threshold -
+          <span id="js-threshold-today-day"></span>
+          <div class="something pull-right">
+            <p>
+              <span id="js-threshold-today-day"></span>
+            </p>
+            <span class="fa fa-calendar"></span>
+            <input class="date-pick" id="js-threshold-today-date" type="text" name="datetime" readonly="readonly" />
+            <!--  <span class="fa fa-sort-desc fa-2x"></span> -->
+          </div>
+        </div>
+      </header>
+      <div class="main--content">
+        <div class="table-responsive">
+          <table class="table table-responsive">
+            <thead id='js-threshold-tableHead'>
+            </thead>
+            <tbody id='js-threshold-tableBody'>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="tab-pane" id="settings-reports" style ="display:none">
+  <main class="col-lg-9 col-md-9">
+    <header class="main--header">
+      <div class="main--title">Monthly CC Workbooks</div>
+    <div class="form-group">
+
+      <div class="col-md-4">
+        <form class="form-group storelist">
+          <label for="store">Select Store :</label>
+          <select class="js-reports-stores" id="js-reports-stores">
+            <option value="0">Select a Store</option>
+          </select>
+        </form>
+      </div>
+
+      <div class="main--title col-md-6"> <span id="js-reports-today-day"></span>
+        <div class="something pull-right">
+          <span class="fa fa-calendar"></span>
+          <input class="date-pick" id="js-settings-reports-date" type="text" name="datetime" readonly="readonly" style="height:40px">
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary" id="js-adm-settings-runreport">Run Report</button>
+      </div>
+    </div>
+    <div class="js-settings-Admrunreport">
+    </div>
+  </header>
+</main>
+  </div>
+
+<div class="modal fade" id="js-report-detachmodal" role="dialog" data-backdrop="static" keyboard=false>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <br>
+        <form class="form-horizontal">
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <center>
+                <p>
+                  <h4>Are you sure, you want to delete this report?</h4></p>
+              </center>
+            </div>
+            <div class="col-sm-4">
+              <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+              <div class="btn btn-success" data-reportId="" id="js-delete_confirmation">Yes</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row settings" id="js-admin-settings-pop" style="display: none;">
+    <div class="modal fade" id="js-rollertimeslots " role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Add Store</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-store-to-build" id="js-add-store-to-build-form">
+            </form>
+            <div id="checkStores">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success js-button-add-store-to-factor">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addwasteStoreModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Add Store</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-store-to-threshold" id="js-add-store-to-threshold-form">
+              <select id="js-threshold-select-store_id"></select>
+            </form>
+            <div id="checkStores">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success" id="js-waste-add-store">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="addrollertimeslots" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="js-level-timeSlots">Add timeslot</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-time_slot-to-level">
+              <select id="js-rollertimeslots"></select>
+            </form>
+            <div id="checkStores">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success" id="js-add-time_slots">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="addUserEmails" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title js-userEmailSlotsHeader" id="js-level-timeSlots"></h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-time_slot-to-level">
+              <select id="js-userEmailSlots"></select>
+            </form>
+            <div id="checkStores">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success" data-group_id="" id="js-addingUserEmail">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-factor-deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this factor?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" id="js-Delete-factor-Yes" data-factorid="">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-select-levelModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Edit Level</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-rollerLevel" id="js-add-store-to-build-form">
+              <select id="js-select-levelEdit">
+              </select>
+            </form>
+            <div id="addLevels">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success js-button-editLevelRollerProfile-yes">Change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-select-levelRollerModalCheck" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" id="js-modalclosebutton" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Add Level</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-rollerLevel" id="js-add-store-to-build-form">
+              <select id="js-select-levelInsertRollerCheck">
+              </select>
+            </form>
+            <div id="addLevels">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="js-level-cancel" data-storeid="" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success js-button-levelInsertRollerCheck-yes">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="addStoreModal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Add Store</h4>
+          </div>
+          <div class="modal-body">
+            <form class="js-add-store-to-build" id="js-add-store-to-build-form">
+            </form>
+            <div id="checkStores">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success js-button-add-store-to-factor">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-level-deleteconfirmation" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this Level?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" data-levelid="" id="js-delete-level">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-group-deleteconfirmation" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title js-deleteGroupTextHeader" id="myModalLabel"></h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group">
+                  <center>
+                    <p class="js-deleteGroupText"></p>
+                  </center>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+              <div class="btn btn-success" data-groupid="" id="js-delete-group">Yes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-level-timeslotconfirmation" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this Timeslots?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" data-levelid="" data-timesid="" data-leveltimeid="" id="js-delete-timeslot">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-user-deleteConfirmation" role="dialog" data-backdrop="static" style="z-index: 9991" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title js-deleteUserTextHeader" data-groupname="" id="myModalLabel"></h4></div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group">
+                  <center>
+                    <p class="js-deleteUserText"></p>
+                  </center>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+              <div class="btn btn-success" data-userid="" id="js-deleteGroup-user">Yes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="userDataForGroup" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title js-addUserToGroup" id="myModalLabel"></h4></div>
+          <div class="modal-body">
+            <select class="js-example-basic-multiple" placeholder="Search" multiple="multiple">
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success" data-groupid="" id="js-add-userToGroup">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="js-email-deleteconfirmation" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title js-StoreDeleteFromGroupHeader" id="myModalLabel"></h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group">
+                  <center>
+                    <p class="js-StoreDeleteFromGroup"></p>
+                  </center>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+              <div class="btn btn-success" data-id="" id="js-delete-emailid">Yes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-wastefactor-deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this factor?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" id="js-wasteDelete-factor-Yes" data-thresholdid="">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-storefactor-deleteModal" tabindex="-1" role="dialog" style="z-index: 9991" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this Store?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" id="js-storeDelete-factor-Yes" data-storeid="" data-factorid="">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="js-wastestorefactor-deleteModal" style="z-index: 9991" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this store?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" id="js-wastestoreDelete-factor-Yes" data-storeid="" data-factorid="">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="viewAllStores" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="modal-title" data-groupname="" id="viewStoresModalLabel"></h4>
+              </div>
+              <div class="col-md-4">
+                <input type="search" class="form-control js-store-search" placeholder="Search" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body js-viewStoresModel"></div>
+          <div class="modal-footer">
+            <div class="col-sm-2 btn btn-default" style="float:right" data-dismiss="modal">Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="viewAllUsers" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="modal-title" data-groupname="" id="viewUsersModalLabel"></h4>
+              </div>
+              <div class="col-md-4">
+                <input type="search" class="form-control js-viewUser-search" placeholder="Search" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body js-viewUsersModel"></div>
+          <div class="modal-footer">
+            <div class="col-sm-2 btn btn-default" style="float:right" data-dismiss="modal">Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade" id="viewAllWasteThresholdStores" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="modal-title" data-thresholdid="" id="WasteThresholdStoresModalLabel">Threshold Factor- AllStores</h4>
+              </div>
+              <div class="col-md-4">
+                <input type="search" class="form-control js-viewWasteThreshold-search" placeholder="Search" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body js-viewAllWasteThresholdStores"></div>
+          <div class="modal-footer">
+            <div class="col-sm-2 btn btn-default" style="float:right" data-dismiss="modal">Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade" id="viewAllBuildToStores" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="modal-title" data-factorid="" id="buildToStoresModalLabel">Threshold Factor- AllStores</h4>
+              </div>
+              <div class="col-md-4">
+                <input type="search" class="form-control js-buildTo-search" placeholder="Search" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body js-viewBuildToStores"></div>
+          <div class="modal-footer">
+            <div class="col-sm-2 btn btn-default" style="float:right" data-dismiss="modal">Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--
+    <div class="modal fade" id="js-report-detachmodal" role="dialog" data-backdrop="static" keyboard=false>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-8">
+                  <center>
+                    <p>
+                      <h4>Are you sure, you want to delete this report?</h4></p>
+                  </center>
+                </div>
+                <div class="col-sm-4">
+                  <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+                  <div class="btn btn-success" data-reportId=""  id="js-delete_confirmation">Yes</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title"><i class="fa fa-gear"></i> Settings</div>
+        <div class="main--subnav">
+          <ul id="tabs" class="nav nav-tabs js-admin-settings" data-tabs="tabs">
+            <li class="active"><a href="#unitprice" data-toggle="tab">Unit Cost</a></li>
+            <li><a href="#buildto" data-toggle="tab">Assemble To Order Factor</a></li>
+            <li><a href="#threshold" data-toggle="tab">Waste Threshold Factor</a></li>
+            <li><a href="#storeprofile" data-toggle="tab">Store Profile</a></li>
+            <li><a href="#rollergrilllevels" data-toggle="tab">Levels</a></li>
+            <li><a href="#plantosucceed" data-toggle="tab">Survey</a></li>
+            <li><a href="#reportConfig" data-toggle="tab">Report Config</a></li>
+            <li><a href="#userlogin" data-toggle="tab">User Login</a></li>
+            <!-- <li><a href="#settings-reports" data-toggle="tab">Monthly CC Reports</a></li> -->
+          </ul>
+        </div>
+      </header>
+      <div id="settings-content" class="tab-content">
+        <div class="tab-pane active" id="unitprice">
+          <ul class="nav nav-tabs adm-unit-profiles" id="js-setting-unit-profiles">
+            <li class="active cc js-unitprice" profileCode='cc'><a href="#" profileCode='cc'>Capital City</a></li>
+            <li class="js-unitprice rg" profileCode='rg'><a href="#" profileCode='rg'>Roller Grills</a></li>
+            <li class="js-unitprice pg" profileCode='pg'><a href="#" profileCode='pg'>Perishable Goods</a></li>
+          </ul>
+          <div class="tab-pane active" id="js-unitprice_profile"></div>
+        </div>
+
+        <!-- <div class="tab-pane" id="settings-reports">
+        <main class="col-lg-9 col-md-9">
+          <header class="main--header">
+            <div class="main--title">Monthly CC Workbooks</div>
+          <div class="form-group">
+
+            <div class="col-md-4">
+              <form class="form-group storelist">
+                <label for="store">Select Store :</label>
+                <select class="js-reports-stores" id="js-reports-stores">
+                  <option value="0">Select a Store</option>
+                </select>
+              </form>
+            </div>
+
+            <div class="main--title col-md-6"> <span id="js-reports-today-day"></span>
+              <div class="something pull-right">
+                <span class="fa fa-calendar"></span>
+                <input class="date-pick" id="js-settings-reports-date" type="text" name="datetime" readonly="readonly" style="height:40px">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary" id="js-adm-settings-runreport">Run Report</button>
+            </div>
+          </div>
+          <div class="js-settings-Admrunreport">
+          </div>
+        </header>
+      </main>
+        </div> -->
+
+        <div class="tab-pane" id="userlogin">
+          <ul class="nav nav-tabs js-admin-userlogin" id="js-setting-userlogin">
+            <li class="active"><a href="#one" aria-controls="one" role="tab" data-toggle="tab">Create New Account</a></li>
+            <li><a href="#two" aria-controls="two" role="tab" data-toggle="tab">Change Password</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="one">
+              <!--  ONE -->
+              <div id="successmessage" class="alert alert-success alert-dismissable" style="display:none">
+                <button type="button" class="close js-close-alert" aria-hidden="true"> &times;</button>
+                <center><strong><span id="spanid">Successfully registered the user</span></strong></center>
+              </div>
+              <div class="bs-example">
+
+                <form class="form-horizontal adm-signup-form" id="js-signup-form">
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="inputName">UserID:<span class="required-asterisk" style="color: red">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="Name" onkeypress="check(event,this);" class="form-control keyup-name text-input" id="js-addUser-userId" placeholder="Name">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="inputName">Name:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="Name" onkeypress="check(event,this);" class="form-control keyup-name text-input" id="js-addUser-inputName" placeholder="Name">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="E-mail">E-mail:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="email" class="form-control" id="js-addUser-E-mail" placeholder="E-mail">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="Password">Password:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="password" class="form-control" id="js-addUser-Password" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="Initials">Initials:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="text" onkeypress="checkinitial(event,this);" class="form-control keyup-intials text-input" maxlength="3" id="js-addUser-Initials" placeholder="Initials">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3">Store:</label>
+                    <div class="col-xs-3">
+                      <select class="form-control" id="js-addUser-stores">
+                        <option value="0">Select store</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3">Designation:</label>
+                    <div class="col-xs-3">
+                      <select class="form-control" id="js-addUser-Designation" disabled>
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-9">
+                      <button type="submit" class="btn btn-primary" id="js-addNewUser-submit" disabled>Submit</button>
+                      <button type="reset" class="btn btn-default" id="js-button-reset">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="two">
+              <!-- TWO -->
+
+              <div class="bs-example">
+                <div id="resetmessage" class="alert alert-success alert-dismissable" style="display:none">
+                  <button type="button" class="close js-close-alert" aria-hidden="true"> &times;</button>
+                  <center><strong><span id="spanid">Successfully changed  your password</span></strong></center>
+                </div>
+                <form class="form-horizontal adm-changepassword" id="js-changepassword-form">
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="inputUserName">UserID:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="Name" onkeypress="check(event,this);" class="form-control" id="js-updatePassword-user_id" placeholder="UserId">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="inputE-mail">E-mail:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="email" class="form-control" id="js-updatePassword-email" placeholder="E-mail">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-3" for="inputNewPassword">New Password:<span class="required-asterisk">*</span></label>
+                    <div class="col-xs-4">
+                      <input type="password" class="form-control" id="js-updatePassword-newPassword" placeholder="NewPassword">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-9">
+                      <input type="submit" class="btn btn-primary" id="js-updatePassword-submit" value="Submit">
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tab-pane" id="buildto">
+          <ul class="nav nav-tabs" id="js-setting-buildto-profiles">
+            <li class="active" id="ATOF_cc"><a href="#" profileCode='cc' onclick="initBuildtoFactorValues('cc')">Capital City</a></li>
+            <li id="ATOF_rg"><a href="#" profileCode='rg' onclick="initBuildtoFactorValues('rg')">Roller Grills</a></li>
+            <li id="ATOF_pg"><a href="#" profileCode='pg' onclick="initBuildtoFactorValues('pg')">Perishable Goods</a></li>
+          </ul>
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th class="col-md-3">Factor Percentage</th>
+                <th class="col-md-9">Stores</th>
+              </tr>
+            </thead>
+            <tbody class="btcard js-settings-factor-body" id="buildtoData">
+            </tbody>
+            <tr class="">
+              <td class="mytable">
+                <button class="btn btn-default dropdown-toggle js-settings-addfactor" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <i class="fa fa-plus"></i> Add New Factor
+                </button>
+              </td>
+              <td class="mytable">
+                <div id="addFactor-content" class="form-group tab-content">
+                  <div class="tab-pane " data-toggle="tab" id="addFactorDiv" style="display:none">
+                    <div class="col-sm-6">
+                    <input type="number" class="form-control" pattern="[0-9]*" min="1" placeholder="Enter Factor Value" id="addFactor" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                  </div>
+                  <div class="col-sm-6">
+                    <button class="btn btn-default dropdown-toggle btn-success" type="button" id="js-settings-assembleOrder-enterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Enter
+                    </button>
+                  </div>
+                  </div>
+                </div>
+        </div>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="tab-pane" id="threshold">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th class="col-md-4">Threshold Factor Percentage</th>
+              <th class="col-md-8">Stores</th>
+            </tr>
+          </thead>
+          <tbody class="btcard js-settings-factor-body" id="thresholdData">
+          </tbody>
+          <tr class="">
+            <td class="mytable">
+              <button class="btn btn-default dropdown-toggle js-settings-waste-addfactor" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="fa fa-plus"></i> Add New Factor
+              </button>
+            </td>
+            <td class="mytable">
+              <div id="addFactor-content" class="form-group tab-content">
+                <div class="tab-pane " data-toggle="tab" id="addWasteFactorDiv">
+                  <div class="col-sm-6">
+                  <input type="number" class="form-control" pattern="[0-9]*" min="1" placeholder="Enter Factor Value" id="addWasteFactor" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                </div>
+                <div class="col-sm-6">
+                <button class="btn btn-default dropdown-toggle btn-success" type="button" id="js-wasteFactor-enterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Enter
+                  </button>
+                </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="tab-pane" id="reportConfig">
+        <ul class="nav nav-tabs js-admin-userlogin" id="js-setting-reportGroup">
+          <li class="active"><a href="#report" aria-controls="one" role="tab" data-toggle="tab">Report Group</a></li>
+          <li><a href="#email" aria-controls="two" role="tab" data-toggle="tab">Email Config</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="report">
+            <!--  REPORT GROUP -->
+            <div class="js-reportGroup-tab">
+
+
+
+            </div>
+
+          </div>
+
+          <div role="tabpanel" class="tab-pane" id="email">
+            <!-- EMAIL CONFIG -->
+            <div class="main--title"> <span id="js-emailconfig-today-day"></span>
+              <div class="something pull-right">
+                <span class="fa fa-calendar"></span>
+                <input class="date-pick" id="js-date-emailconfig" type="text" name="datetime" readonly="readonly">
+                <!-- <span class="fa fa-sort-desc fa-2x"></span> -->
+              </div>
+            </div>
+            <div class="js-emailConfig-tab">
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="tab-pane col-lg-9 col-md-9" id="rollergrilllevels">
+        <div class="tab-content">
+          <div id="js-leveldeletealert" class="alert alert-danger alert-dismissable" style="display:none">
+            <button type="button" class="close js-close-alert" aria-hidden="true"> &times;</button>
+            <center><strong><span id="spanid">At least one profile has to be selected.</span></strong></center>
+          </div>
+          <div id="js-roller-levels"></div>
+        </div>
+      </div>
+      <div class="tab-pane" id="storeprofile">
+        <div id="alertdiv" class="alert alert-danger alert-dismissable" style="display:none">
+          <button type="button" class="close js-close-alert" aria-hidden="true"> &times;</button>
+          <span id="spanid">At least one profile has to be selected.</span>
+        </div>
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th class="col-md-3">Stores</th>
+              <th class="col-md-9">Profile</th>
+            </tr>
+          </thead>
+          <tbody class="btcard js-store-list">
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="plantosucceed">
+        <div class="tab-content">
+          <div class="col-sm-12">
+            <button class="col-sm-offset-10 col-sm-2 btn btn-success adm-addsurvey" data-toggle="modal" onclick="getProfiles()" data-target="#addsurvey"><i class="fa fa-plus"></i> Add survey
+            </button>
+          </div>
+          <div class="modal fade" id="addsurvey" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">Add a Survey</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label>Survey Name</label>
+                      <input type="input" class="form-control" id="js-survey-name" name="name" />
+                    </div>
+                    <div class="form-group">
+                      <label>Survey Code</label>
+                      <select type="input" class="form-control" id="js-survey-profiles" name="code">
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-success" id="js-add-survey">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="survey-tabs-new">
+          </div>
+        </div>
+      </div>
+  </div>
+  </main>
+  </div>
+  </div>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="/bower_components/handlebars/handlebars.js"></script>
+  <script src="/bower_components/moment/moment.js"></script>
+  <script src="/bower_components/moment-range/dist/moment-range.js"></script>
+  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/bower_components/jquery-file-download/src/Scripts/jquery.fileDownload.js"></script>
+  <script src="/bower_components/underscore/underscore-min.js"></script>
+  <script src="/src/js/jquery.routes.js"></script>
+  <script src="/src/js/pnotify.custom.min.js"></script>
+  <script src="/src/js/jquerypp.js"></script>
+  <script src="/src/js/jquery.fixedTblHdrLftCol.js"></script>
+  <script src="/build/js/templates.js"></script>
+  <script src="/src/js/interact.js"></script>
+  <script src="/src/js/app.js"></script>
+  <script src="/src/js/reports.js"></script>
+  <script src="/src/js/pullsheet.js"></script>
+  <script src="/src/js/temparature.js"></script>
+  <script src="/src/js/surveysView.js"></script>
+  <script src="/src/js/anticipated_buildto.js"></script>
+  <script src="/src/js/settings.js"></script>
+  <script src="/src/js/threshold.js"></script>
+  <script src="/src/js/sha256.jquery.debug.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.aside--logo').find('img').attr('src', 'images/logo.png');
+      $('.js-admin-main-nav').on('click', function(ev) {
+        ev.preventDefault();
+        $('.js-admin-main-nav').removeClass('active');
+        $('.js-admin-main-div').hide();
+        $('#js-admin-ccWorkbooks').parent().removeClass('active');
+        $('#js-admin-settings').parent().removeClass('active');
+        var element = $(ev.target).is('li') ? $(ev.target) : $(ev.target).parent('li');
+        if (element.find('a').attr('id') === 'js-reports-main') {
+          //$('.js-admin-wastage-div').show();
+        } else {
+          $(this).addClass('active');
+          $('#js-ordermanage').parent('li').removeClass('active');
+        }
+        if ($(ev.target).data('url') === 'waste') {
+          $('.main--tabs').show();
+          $('.js-admin-wastage-div').show();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-inspection-div').hide();
+          $("#settings-reports").hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-temperature-div').hide();
+          $('.js-admin-antispated-div').hide();
+          $('.js-admin-threshold-div').hide();
+          $('.js-admin-pullover-div').hide();
+          $('.js-admin-order-management-div').hide();
+          if ($('.js-wastage-main-nav li.active').find('a').attr('data-value') == 'Ingredients') {
+            loadIngredients();
+          } else {
+            loadProductWaste();
+          }
+          //loadStores();
+        } else if ($(ev.target).data('url') === 'temperature') {
+          $('.main--tabs').show();
+          $('.js-admin-temperature-div').show();
+          $('.js-admin-wastage-div').hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-inspection-div').hide();
+          $("#settings-reports").hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-antispated-div').hide();
+          $('.js-admin-threshold-div').hide();
+          $('.js-admin-pullover-div').hide();
+          $('.js-admin-order-management-div').hide();
+          $('.temperature').append('<div class="col-lg-offset-5 dots-loader spinner-div-style">Loading…</div>');
+          if ($('.js-temp-main-nav li.active').find('a').attr('data-value') == 'Product') {
+            $('.js-temp-perishable-sub-nav').hide();
+            $('.js-temp-roller-sub-nav').hide();
+            loadProducts();
+          } else if ($('.js-temp-main-nav li.active').find('a').attr('data-value') == 'Equipment') {
+            $('.js-temp-perishable-sub-nav').hide();
+            $('.js-temp-roller-sub-nav').hide();
+            loadEquipments();
+          } else if ($('.js-temp-main-nav li.active').find('a').attr('data-value') == 'Roller Grill Products') {
+            $('.js-temp-perishable-sub-nav').hide();
+            $('.js-temp-roller-sub-nav').show();
+            loadRollerTimeSlots();
+          } else if ($('.js-temp-main-nav li.active').find('a').attr('data-value') == 'Perishable Goods') {
+            $('.js-temp-perishable-sub-nav').show();
+            $('.js-temp-roller-sub-nav').hide();
+            loadTempFreshProductsTimeSlots();
+          }
+        } else if ($(ev.target).data('url') === 'inspection') {
+          $('.main--tabs').show();
+          $('.js-admin-inspection-div').show();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-wastage-div').hide();
+          $('.js-admin-temperature-div').hide();
+          $("#settings-reports").hide();
+          $('.js-admin-antispated-div').hide();
+          $('.js-admin-threshold-div').hide();
+          $('.js-admin-order-management-div').hide();
+          $('.js-admin-pullover-div').hide();
+          $('#js-admin-settings-pop').hide();
+          getSurveyTabs();
+          backtoSurveys();
+        } else if ($(ev.target).data('url') === 'anticipatedsales') {
+          $('.main--tabs').show();
+          if ($('.js-store-nav li.active').attr('data-value') == 'capitalCity') {
+            buildto('2');
+          } else if ($('.js-store-nav li.active').attr('data-value') == 'rollerGrills') {
+            buildtoRollerGrill('7');
+          } else if ($('.js-store-nav li.active').attr('data-value') == 'Perishable Goods') {
+            buildtoFreshproducts('8');
+          }
+          $('.js-admin-antispated-div').show();
+          $('.js-store-main-div').hide()
+          $('.js-admin-wastage-div').hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-inspection-div').hide();
+          $("#settings-reports").hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-temperature-div').hide();
+          $('.js-admin-threshold-div').hide();
+          $('.js-admin-pullover-div').hide();
+          $('.js-admin-order-management-div').hide();
+
+        } else if ($(ev.target).data('url') === 'thresholdreport') {
+          $('.main--tabs').show();
+          $('.js-admin-threshold-div').show();
+          thresholdReports();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-wastage-div').hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-inspection-div').hide();
+          $("#settings-reports").hide();
+          $('.js-admin-temperature-div').hide();
+          $('.js-admin-antispated-div').hide();
+          $('.js-admin-pullover-div').hide();
+          $('.js-admin-order-management-div').hide();
+        } else if ($(ev.target).data('url') === 'pulloversheets') {
+          $('.main--tabs').show();
+          $('.js-admin-pullover-div').show();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-wastage-div').hide();
+          $('#js-admin-settings-pop').hide();
+          $('.js-admin-inspection-div').hide();
+          $("#settings-reports").hide();
+          $('.js-admin-temperature-div').hide();
+          $('.js-admin-antispated-div').hide();
+          $('.js-admin-order-management-div').hide();
+          loadPullSheetTabs();
+          //pulloverfunction($('.js-pullover-maintabs li.active').attr('data-value'));
+        }
+      });
+      $('#js-reports-main').on('click', function(ev) {
+        ev.preventDefault();
+        $('.js-admin-main-nav').removeClass('active');
+        $('#js-admin-settings').parent().removeClass('active');
+        $('#js-ordermanage').parent().removeClass('active');
+        $('.js-side-sub-nav li:first').addClass('active');
+        $('#js-admin-settings').parent().removeClass('active');
+        $('#js-ordermanage').parent().removeClass('active');
+        $('.js-admin-main-div').hide();
+        $('.js-admin-antispated-div').show();
+        $('#js-admin-settings-pop').hide();
+      });
+      $('#js-admin-logout').on('click', function(ev) {
+        ev.preventDefault();
+        $.cookie('user', null);
+        document.location.href = '/';
+      });
+      $('#js-ordermanage').click(function(ev) {
+        $('#js-admin-ccWorkbooks').parent().removeClass('active');
+        ev.preventDefault();
+        $('#js-admin-settings').parent().removeClass('active');
+        $('.js-admin-main-nav').removeClass('active');
+        $(this).parent('li').addClass('active');
+        $("#settings-reports").hide();
+        $('.js-admin-main-div').hide();
+        $('#js-admin-settings-pop').hide();
+        $('.js-admin-order-management-div').show();
+      });
+
+      //$("#js-ordermanage").hide();
+      $("#js-reports-main").hide();
+      $('#js-admin-settings-pop').hide();
+      $("#sub1").hide();
+      //$('#js-admin-settings-pop').show();
+      //$("main").hide();
+
+    });
+
+
+    function check(evt, id) {
+      var value = id.value;
+      var theEvent = evt || window.event;
+      var key = theEvent.keyCode || theEvent.which;
+      // Don't validate the input if below arrow, delete and backspace keys were pressed
+      key = String.fromCharCode(key);
+      var regex = /[a-zA-Z0-9 ]/;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault)
+          theEvent.preventDefault();
+      }
+    }
+
+    function checkinitial(evt, id) {
+      var value = id.value;
+      var theEvent = evt || window.event;
+      var key = theEvent.keyCode || theEvent.which;
+      // Don't validate the input if below arrow, delete and backspace keys were pressed
+      key = String.fromCharCode(key);
+      var regex = /[a-zA-Z0-9 ]/;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault)
+          theEvent.preventDefault();
+      }
+    }
+
+    $('.js-temp-main-nav li').click(function(ev) {
+      ev.preventDefault();
+      $('.js-temp-main-nav li').removeClass('active');
+      $(ev.target).closest('li').addClass('active');
+      stateObject.tempMainCategory = $(ev.target).closest('li').find('a').data('value');
+      stateObject.pershible_category_time_id = $('.js-temp-perishable-sub-nav li.active').attr('data-category_time_id');
+      if (stateObject.tempMainCategory === 'Equipment') {
+        loadEquipments();
+        $('.js-temp-sub-nav').show();
+        $('.js-temp-roller-sub-nav').hide();
+        $('.js-temp-perishable-sub-nav').hide();
+      } else if (stateObject.tempMainCategory === 'Roller Grill Products') {
+        $('.js-temp-roller-sub-nav').show();
+        $('.js-temp-perishable-sub-nav').hide();
+        $('.js-temp-sub-nav').hide();
+        loadRollerTimeSlots();
+      } else if (stateObject.tempMainCategory === 'Perishable Goods') {
+        $('.js-temp-perishable-sub-nav').show();
+        $('.js-temp-roller-sub-nav').hide();
+        $('.js-temp-sub-nav').hide();
+        loadTempFreshProductsTimeSlots();
+      } else {
+        $('.js-temp-roller-sub-nav').hide();
+        $('.js-temp-perishable-sub-nav').hide();
+        $('.js-temp-sub-nav').show();
+        loadProducts();
+      }
+      $('.temperature .dots-loader').remove();
+      $('.js-temp-actions').hide();
+      //$('.temperature .js-temp-head').html('');
+      $('.temperature .js-temp-body').html('');
+      $('.temperature').append('<div class="col-lg-offset-5 dots-loader spinner-div-style">Loading…</div>');
+    });
+
+    $('.js-temp-sub-nav li').click(function(ev) {
+      ev.preventDefault();
+      $('.js-temp-sub-nav li').removeClass('active');
+      $(ev.target).closest('li').addClass('active');
+      stateObject.tempSubCategory = $(ev.target).closest('li').data('value');
+      if (stateObject.tempMainCategory === 'Equipment') {
+        loadEquipments();
+      } else {
+        loadProducts();
+      }
+      $('.temperature .dots-loader').remove();
+      $('.js-temp-actions').hide();
+      //$('.temperature .js-temp-head').html('');
+      $('.temperature .js-temp-body').html('');
+      $('.temperature').append('<div class="col-lg-offset-5 dots-loader spinner-div-style">Loading…</div>');
+    });
+    $('.js-temp-roller-sub-nav').click(function(ev) {
+      ev.preventDefault();
+      $('.js-temp-roller-sub-nav li').removeClass('active');
+      $(ev.target.parentElement).addClass('active');
+      rollerTimeStampTab($('.js-temp-roller-sub-nav li.active').attr('data-category-time-id'));
+    });
+    $('.js-antispated-sub-nav li').on('click', function(ev) {
+      ev.preventDefault();
+      stateObject.anticipatedMainCategory = $(ev.target).closest('li').find('a').data('value');
+      $('.js-antispated-sub-nav li').removeClass('active');
+      $(ev.target).closest('li').addClass('active');
+      $('.build-table .dots-loader').remove();
+      $('.js-antispected-actions').hide();
+      $('.build-table .js-buildto-head').html('');
+      $('.build-table .js-buildto-body').html('');
+      $('.build-table').append(styleLoader);
+      if ($('.js-store-nav').find('li.active').attr("data-value") === 'capitalCity') {
+        buildto('2')
+      }
+
+    });
+    $('.js-perishable-sub-nav li').on('click', function(ev) {
+      ev.preventDefault();
+      stateObject.anticipatedMainCategory = $(ev.target).closest('li').find('a').data('value');
+      $('.js-perishable-sub-nav li').removeClass('active');
+      $(ev.target).closest('li').addClass('active');
+      $('.build-table .dots-loader').remove();
+      $('.js-antispected-actions').hide();
+      $('.build-table .js-buildto-head').html('');
+      $('.build-table .js-buildto-body').html('');
+      $('.build-table').append(styleLoader);
+      if ($('.js-store-nav').find('li.active').attr("data-value") === 'Perishable Goods') {
+        buildtoFreshproducts('8');
+      }
+    });
+
+
+    $(document).delegate('.js-temp-perishable-sub-nav li', 'click', function(el, ev) {
+      $('.js-temp-perishable-sub-nav li').removeClass('active');
+      $(this).addClass('active');
+      stateObject.pershible_category_time_id = $('.js-temp-perishable-sub-nav li.active').attr('data-category_time_id');
+      loadTempFreshProducts();
+    });
+
+    $(document).delegate('.js-temp-pullsheet-sub-nav li', 'click', function(el, ev) {
+      $('.js-temp-pullsheet-sub-nav li').removeClass('active');
+      $(this).addClass('active');
+      pulloverfunction($('.js-pullover-maintabs li.active').attr('data-value'));
+    });
+
+    $('.js-store-nav li').click(function(ev) {
+      ev.preventDefault();
+      $('.js-store-nav li').removeClass('active');
+      $(ev.target.parentElement).addClass('active');
+      if (ev.target.dataset.value == 'rollerGrills') {
+          buildtoRollerGrill('7');
+      } else if (ev.target.dataset.value == 'capitalCity') {
+          buildto('2');
+      } else if (ev.target.dataset.value == 'Perishable Goods') {
+          buildtoFreshproducts('8');
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    var wasteReportFinishedTemplate = '',
+      wasteReportIngredientTemplate = '',
+      inspectionsTemplateDetails = '',
+      inspectionsTemplate = '',
+      storeTemplate = '',
+      editCostFormTemplate = '',
+      buildToFactorValuesTemplate = '',
+      unitPriceTemplate = '',
+      addStoreFormTemplate = '';
+    var surveyTabsTemplate = '';
+    var updateSurveyTableTemplate = '';
+    var surveyCategoryTabsTemplate = '';
+    var surveyQuestionsTemplate = '';
+    var completedViewTemplate = '';
+    var adminSurveyTableTemplate = '';
+    var thresholdReportTemplate = '';
+  </script>
+</body>
+
+</html>

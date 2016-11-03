@@ -1,0 +1,12 @@
+  {{#each products}}
+  <tr class="card">
+  <td class="mytable">{{product_name}}</td>
+    {{#each data}}
+      {{#if average}}
+     <td class="mytable">{{average}}</td>
+     {{else}}
+     <td class="mytable">0</td>
+     {{/if}}
+    {{/each}}
+  </tr>
+  {{/each}}

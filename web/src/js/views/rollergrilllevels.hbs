@@ -1,0 +1,49 @@
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th class="col-md-3">Level names</th>
+      <th class="col-md-9">Time slots</th>
+    </tr>
+  </thead>
+  <tbody class="btcard">
+    {{#each level}}
+      <tr class="">
+        <td class="mytable">{{level_name}}<a href="#" class="js-level-delete" data-level-id="{{level_id}}"><i class="fa fa-trash pull-right" ></i></a></td>
+        <td class="mytable">
+          {{#each level_timings}}
+            <button type="button" class="btn btn-success btn--tag js-level-detatch-time_slot" data-level-time-id="{{level_time_id}}" data-times-id="{{times_id}}" data-level-id="{{level_id}}">{{slot_name}} <i class="fa fa-times-circle"></i></button>
+          {{/each}}
+          <span class="dropdown">
+              <button class="btn btn-default btn--tag dropdown-toggle" type="button"
+                      id="js-addlevel-time" data-level-id="{{level_id}}" data-leveltime-id="{{level_time_id}}">
+                  <i class="fa fa-plus"></i> Add timeslot
+              </button>
+          </span>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+  <tr class="">
+    <td class="mytable">
+      <button class="btn btn-default dropdown-toggle js-settings-roller-addfactor" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <i class="fa fa-plus"></i> Add New Level
+      </button>
+    </td>
+    <td class="mytable">
+      <div id="addFactor-content" class="form-group tab-content">
+        <div class="tab-pane " data-toggle="tab" id="addFactor-rollerDiv">
+          <div class="col-sm-6">
+          <input type="number" min="1" title="yo" class="js-fixedtext form-control" id="addlevelFactor" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+        </div>
+        <div class="col-sm-6">
+        <button class="btn btn-default dropdown-toggle btn-success" type="button" id="js-settings-levels-enterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Enter
+          </button>
+        </div>
+        </div>
+      </div>
+
+    </td>
+  </tr>
+
+</table>

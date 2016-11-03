@@ -1,0 +1,11 @@
+<table>
+  <tbody class>
+    {{#each report}}
+      <tr class="col-sm-4" style="margin-top:20px">
+        <td class="mytable" data-id="{{id}}">
+          <button type="button" class="btn btn-success btn--tag js-user-detatch-group" data-email-id="{{id}}" data-user_id="{{user_id}}">{{user_id}} <i class="fa fa-times-circle"></i></button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

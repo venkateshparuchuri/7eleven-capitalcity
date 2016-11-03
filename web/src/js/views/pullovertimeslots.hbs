@@ -1,0 +1,27 @@
+{{#each time_slots}}
+<tr>
+<th>Item Name
+    <br/>
+</th>
+<th>Anticipated Pulls
+</br>{{anticipated_time}}
+    <br/>
+</th>
+<th>Historical Waste
+</br><span>{{historical_time}}<span>
+    <br/>
+</th>
+{{#each pullHead_times}}
+<th class="js-pullsheet_header">Pullover for
+    <br/>
+    {{#verify time_range}}
+    {{time_range}}
+    {{/verify}}
+</th>
+{{/each}}
+<th>Sum of
+Pullovers
+    <br/>
+</th>
+</tr>
+{{/each}}

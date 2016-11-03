@@ -1,0 +1,288 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard for super users to access the store data reports.">
+  <meta name="author" content="">
+  <title>DBQadmin</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="dist/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" />
+</head>
+
+
+
+<body>
+
+  <div class="container-fluid no-left-padding">
+    <aside class="slideInLeft animated">
+      <div class="aside--logo">
+        <a href="/dbqadmin.html">
+          <img src="images/capitalcity_logo.png" alt="">
+        </a>
+      </div>
+      <ul class="aside-nav nav js-side-nav dbqadmin-side-nav-override">
+        <li class="active dbq-main-nav" style="margin-top: 30px"><a href="#" id="js-dbq-ordermanage" data-type="manage">Manage Order Form Items</a></li>
+        <li class="dbq-main-nav"><a href="#" id="js-dbq-addform" data-type="addedit">Add / Edit items</a></li>
+      </ul>
+      <div class="acc-info">
+        <div class="dropdown">
+          <button class="btn btn--account dropdown-toggle" id="js-dbq-user-name" type="button" data-toggle="dropdown">
+            <i class="fa fa-caret-up"></i>
+            <small id="js-dbq-user-role">Dbq Admin </small>
+          </button>
+          <ul class="dropdown-menu dropup">
+            <li><a href="#" id="js-dbq-admin-logout">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="js-orderform" style="display:none">
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title">Manage Order Form Items
+          <span id="js-antispected-today-day"></span>
+        </div>
+        <ul class="nav nav-tabs js-orderform-type">
+          <li class="active" data-value="Packaging"><a data-toggle="tab" href="#Packaging" data-value="Packaging">Packaging</a></li>
+          <li data-value="Supplies"><a data-toggle="tab" href="#Supplies" data-value="Supplies">Supplies</a></li>
+          <li data-value="Labels"><a data-toggle="tab" href="#Labels" data-value="Labels">Labels</a></li>
+        </ul>
+      </header>
+      <div class="tab-content">
+        <div id="Packaging" class="tab-pane active">
+          <table class="table js-product-packaging">
+
+          </table>
+        </div>
+        <div id="Supplies" class="tab-pane">
+          <table class="table js-product-supplies">
+
+          </table>
+        </div>
+        <div id="Labels" class="tab-pane">
+          <table class="table js-product-labels">
+
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="addproducts" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add or Edit Items</h4>
+        </div>
+        <div class="modal-body" id="js-order-model">
+          <div id="content">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div id="pickList"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Canceldbqadmin.html
+          </button>
+          <button type="button" class="btn btn-success" id="getselected">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- -div for ADD NEW PRODUCT - -->
+
+  <div role="tabpanel" class="tab-pane" id="addproductsform">
+    <main class="col-lg-9 col-md-9">
+      <header class="main--header">
+        <div class="main--title">Add / Edit Items</div>
+        <ul class="nav nav-tabs js-orderform-mainnav">
+          <li class="active" data-value="addProduct"><a data-toggle="tab" href="#addProduct" data-value="addProduct">Add Product</a></li>
+          <li data-value="editProduct"><a data-toggle="tab" href="#editProduct" data-value="editProduct">Edit Product</a></li>
+        </ul>
+      </header>
+      <div class="tab-content">
+        <div id="addProduct" class="tab-pane active">
+          <div style="float: right" class="watermark"><span class="required-asterisk">*</span> All fields are mandatory</div>
+          <form class="form-horizontal dbqadm-addnewproduct" id="js-addnewproduct-form" style="margin-top: 100px">
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="ProductDescription">Product Description:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-ProductDescription" placeholder="Product Description" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Product Type">Product Type:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4" id="product-radio">
+                <input type="radio" name="goods" value="5" checked> Packaging
+                <input type="radio" name="goods" value="6"> Supplies
+                <input type="radio" name="goods" value="7"> Labels
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Storage">Storage:</label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-Storage" placeholder="Storage" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Product Type">Size:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-Size" placeholder="Size" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Case">Case:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-Case" placeholder="Case" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Brand">Brand:</label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-Brand" placeholder="Brand" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="Item">Item#:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="js-Item" placeholder="Item" onkeypress="return blockSpecialChar(event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="DBQ">DBQ#:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="number" class="form-control" min="1" id="js-DBQ" placeholder="DBQ" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-5" for="DBQ">Max_Quantity#:<span class="required-asterisk">*</span></label>
+              <div class="col-xs-4">
+                <input type="number" class="form-control" min="1" id="js-max_quantity" placeholder="max_quantity" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-offset-6 col-xs-6">
+                <button type="submit" class="btn btn-primary" id="js-addproduct-submit">Submit</button>
+                <button type="reset" class="btn btn-default" id="js-dbqbtn-reset">Reset</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="editProduct" class="tab-pane">
+          <ul class="nav nav-pills tab_margin_b js-orderform-edit">
+            <li class="active" data-value="Packaging"><a href="#editPackaging" data-toggle="tab">Packaging</a></li>
+            <li data-value="Supplies"><a href="#editSupplies" data-toggle="tab">Supplies</a></li>
+            <li data-value="Labels"><a href="#editLabels" data-toggle="tab">Labels</a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="editPackaging" class="tab-pane active">
+              <table class="table" data-value="Packaging">
+
+              </table>
+            </div>
+            <div id="editSupplies" class="tab-pane">
+              <table class="table" data-value="Supplies">
+
+              </table>
+            </div>
+            <div id="editLabels" class="tab-pane">
+              <table class="table" data-value="Labels">
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <div class="modal fade" id="editDbqProduct" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title js-dbq_product-edit"></h4>
+        </div>
+        <div class="modal-body js-dbq-editProductForm">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="js-product-deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myProductModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <br>
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group">
+                <center>
+                  <p class="js-delete-dbqProduct-text"></p>
+                </center>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div>
+            <div class="btn btn-default" data-dismiss="modal">No</div>&nbsp&nbsp
+            <div class="btn btn-success" id="js-Delete-product-Yes" data-dbq_id="">Yes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="/bower_components/handlebars/handlebars.js"></script>
+  <script src="/bower_components/moment/moment.js"></script>
+  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/bower_components/underscore/underscore-min.js"></script>
+  <script src="/src/js/jquery.routes.js"></script>
+  <script src="/build/js/templates.js"></script>
+  <script src="/src/js/pnotify.custom.min.js"></script>
+  <script src="/src/js/jquerypp.js"></script>
+  <script src="/src/js/jquery.fixedTblHdrLftCol.js"></script>
+  <script src="/src/js/interact.js"></script>
+  <script src="/src/js/app.js"></script>
+  <script src="/src/js/dbqroutes.js"></script>
+  <script src="/src/js/dbqorderform.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#js-dbq-admin-logout').on('click', function(ev) {
+        ev.preventDefault();
+        $.cookie('user', null);
+        document.location.href = '/';
+      });
+    });
+  </script>
+
+</body>
+
+</html>

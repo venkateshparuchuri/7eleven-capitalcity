@@ -1,0 +1,95 @@
+<div class="modal fade" id="editCostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit Details</h4>
+      </div>
+      <div class="modal-body">
+        <form class="js-edit-cost-form" id="editCostForm">
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" data-productid="" data-historyid="" class="btn btn-success js-button-cost-update">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmationCostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">The cost already exists for that date, Do you want to update the cost?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          No
+        </button>
+        <button type="button" data-history-id="" class="btn btn-success js-button-yes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{#each unitPrices}}
+  <div class="accordion unit">
+    <div class="panel-group" id="product_{{product_id}}" role="tablist" aria-multiselectable="true">
+      <div class="accordion unit">
+        <div class="panel-group" id="accordion_{{product_id}}" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading">
+              <div class="panel-title h4 row collapsed" role="button" data-toggle="collapse" data-parent="#accordion_{{product_id}}" href="#collapsesausage_{{product_id}}" aria-expanded="false" aria-controls="collapsesausage_{{product_id}}">
+                <div class="col-md-4">
+
+                  {{product_name}}
+                </div>
+                <div class="col-md-2 js-effective-date">{{effective_date}}</div>
+                <div class="col-md-1 js-product-cost">{{product_cost}}</div>
+                <div class="col-md-1 text-center">
+                  <a class="edpen js-edit-cost-action" href="" data-product-name="{{product_name}}" data-product-id="{{product_id}}"> <i class="fa fa-pencil"></i></a>
+                </div>
+                <div class="col-md-1"><i class="fa fa-chevron-right"></i></div>
+              </div>
+
+            </div>
+            <div id="collapsesausage_{{product_id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-3"></th>
+                    <th class="col-md-3">Effective Date</th>
+                    <th class="col-md-3">Unit Cost</th>
+                    <th class="col-md-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each values}}
+                    <tr>
+                      <td class="mytable"></td>
+                      <td class="mytable" history_id="{{history_id}}" history_date="{{effective_date}}" history_cost="{{item_cost}}">{{effective_date}}</td>
+                      <td class="mytable">{{item_cost}}</td>
+                      <td class="mytable"></td>
+                    </tr>
+
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+{{/each}}

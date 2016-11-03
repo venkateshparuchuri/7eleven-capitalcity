@@ -1,0 +1,57 @@
+    {{#each categoryQuestions}}
+    <div class="row qcard js-inspect-row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="qcard--q" data-question-id={{question_id}} data-question-score="{{question_score}}">
+                        {{#textQuestion questionInfo question}}{{/textQuestion}}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="qcard--notes">
+                        {{#if comments}}
+                        <button class="btn btn-success" data-toggle="collapse" href="#{{question_id}}" aria-expanded="false" aria-controls="{{question_id}}">
+                            <i class="fa fa-commenting-o"></i> Notes
+                        </button>
+                        {{else}}
+                        <button class="btn btn-default" data-toggle="collapse" href="#{{question_id}}" aria-expanded="false" aria-controls="{{question_id}}">
+                            <i class="fa fa-commenting-o"></i> Notes
+                        </button>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="{{question_id}}">
+                <div class="well">
+                    <textarea class="form-control js-inspection-text-area-comments" rows="4" placeholder="comment here">{{comments}}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="onoffswitch col-md-10">
+                    {{#equaltoo question_score result_score}}
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox js-switch-box" data-question-answer-id="{{question_answer_id}}" data-question-score="{{question_score}}" id="myonoffswitch{{question_id}}" checked="true">
+                    <label class="onoffswitch-label" for="myonoffswitch{{question_id}}"></label>
+                    {{else}}
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox js-switch-box" data-question-answer-id="{{question_answer_id}}" data-question-score="{{question_score}}" id="myonoffswitch{{question_id}}">
+                    <label class="onoffswitch-label" for="myonoffswitch{{question_id}}"></label>
+                    {{/equaltoo}}
+                </div>
+                {{#if result_score}}
+                <div class="onoffswitch js-switch-result col-md-2">{{result_score}}</div>
+                {{else}}
+                <div class="onoffswitch js-switch-result col-md-2"></div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+            <button class="btn btn--reports btn-block js-btn-back-cQuestions">Back</button>
+        </div>
+        <div class="col-md-2 ">
+            <button class="btn btn--action btn-block js-btn-next-cQuestions">Next</button>
+       </div>
+    </div>

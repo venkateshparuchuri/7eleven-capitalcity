@@ -1,0 +1,12 @@
+    {{#each inspections}}
+    <tr class="card js-inspection-details emp-inspection-details" data-inspectionid="{{id}}" data-status="{{status}}"
+        data-inspectioncomments="{{inspection_overall_comments}}">
+        <td class="mytable">{{store_id}}#</td>
+        <td class="mytable">{{inspector_name}}</td>
+        <td class="mytable">{{location}}</td>
+        <td class="mytable">{{#datetostring}}{{inspection_date}}{{/datetostring}}</td>
+        <td class="mytable">{{score}}</td>
+        <td class="mytable" data-inspectionid="{{id}}"><i
+                class="fa fa-2x fa-chevron-circle-right js-inspection-details js-inspect-expand"></i></td>
+    </tr>
+    {{/each}}

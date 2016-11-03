@@ -1,0 +1,352 @@
+<ul class="nav nav-tabs r-space" id="tabs-new">
+  {{#each surveysList}}
+
+    <li data-surveyid= {{surveyId}}>
+      <a href="#tab_{{surveyId}}" id="tabId_{{surveyId}}" data-toggle="tab" data-value="{{surveyName}}" survey_id='{{surveyId}}'>{{surveyName}}
+            </a>
+    </li>
+    <i class="fa fa-pencil" onclick="editSurvey('{{surveyName}}','{{surveyId}}')"></i>
+
+  {{/each}}
+</ul>
+<br/>
+<div class="tab-content">
+
+  {{#each surveysList}}
+    <div class="tab-pane" id="tab_{{surveyId}}">
+      <div class="main--content adm-sett-surveylist">
+        <div class="main--tabs">
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="nav nav-pills">
+                <li class="active js-category-li"><a href="#categories_{{surveyId}}" data-toggle="tab">Categories</a>
+                </li>
+                <li class="js-question-li"><a href="#questions_{{surveyId}}" data-toggle="tab">Questions</a></li>
+              </ul>
+            </div>
+          </div>
+          <div id="plantosucceed-content" class="tab-content">
+            <div class="tab-pane active" id="categories_{{surveyId}}">
+              <div class="row">
+                <div class="col-md-12" id="js-settings-plan-category" data-surveyId="{{surveyId}}">
+
+                  {{#each categories}}
+
+                    <button class="btn btn--tag btn-default js-edit-surveyCategory" data-categoryid="{{categoryId}}" data-categoryName="{{categoryName}}"><span class="js-edit-surveyCategory" id="p-cat-{{categoryId}}"> {{categoryName}}</span>
+                      <i class="fa fa-pencil js-edit-surveyCategory"></i>
+                    </button>
+                  {{/each}}
+                </div>
+              </div>
+              <Br/> ​
+              <div class="row">
+                <div class="col-md-12">
+
+                  <button class="btn btn-success" onclick="addCategory({{surveyId}},'{{surveyName}}')"><i class="fa fa-plus"></i> Add Category
+                  </button>
+                  </BR>
+                  </BR>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="questions_{{surveyId}}">
+              <div class="row">
+                <div class="col-sm-12">
+                  <button class="btn btn-success" onclick="addquestion({{surveyId}})"><i class="fa fa-plus"></i> Add Question
+                  </button>
+                  </BR>
+                  </BR>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  {{#each categories}}
+                    <div class="accordion plan-question">
+                      <div class="panel-group" id="{{categoryId}}_accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                          <div class="panel-heading" role="tab" id="heading">
+                            <div class="panel-title h4 row collapsed" role="button" data-toggle="collapse" data-parent="#{{categoryId}}_accordion" href="#acc_{{categoryId}}" aria-expanded="false" aria-controls="collapsesausage">
+                              <div class="col-sm-11">
+                                {{categoryName}}
+                              </div>
+                              <div class="col-sm-1 text-center">
+                                <a href=""> <i class="fa fa-chevron-right"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="acc_{{categoryId}}" class="panel-collapse table-responsive collapse" role="tabpanel" aria-labelledby="">
+                            <table class="table table-striped">
+                              <tbody>
+                                {{#each questions}}
+                                  <tr>
+                                    <td class="col-sm-9 mytable" id="data_{{questionId}}" data-questionId="{{questionId}}" style="white-space: normal !important;" data-questionInfo="{{questionInfo}}">{{question}}
+                                    </td>
+                                    <td class="col-sm-1 mytable" id="datascore_{{questionId}}">{{question_score}}</td>
+                                    <td class="col-sm-2 mytable">
+                                      <a href="#" class='btn btn-info' onclick="editQuestion({{questionId}},'{{question}}','{{question_score}}')"> <i class="fa fa-pencil"></i>Edit</a>
+                                      <a href="#" class='js-settings-deleteQuestion btn btn-danger' data-toggle="modal" data-target="#qdelete" question-id="{{questionId}}">
+                                        <i class="fa fa-remove" question-id="{{questionId}}"></i>Delete</a>
+                                    </td>
+                                  </tr>
+                                {{/each}}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
+          ​
+        </div>
+
+      </div>
+    </div>
+
+  {{/each}}
+</div>
+
+
+<div class="modal fade" id="editQuestionModal" tabindex="2" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit question</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Question</label>
+            <textarea id="editQuestionText" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Score</label>
+            <input type="text" id="editScoreText" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" data-dismiss="modal">Cancel
+        </div>
+        <div class="btn btn-success" id="editQuestionDone">Done</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{{#each surveysList}}
+
+  <div class="modal fade" id="addcategory_{{surveyId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add Category</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Category</label>
+              <input type="text" id="select-surveyName_{{surveyId}}" disabled></input>
+            </div>
+            <div class="form-group">
+              <label>CategoryName</label>
+              <input type="text" class="form-control" id="newCategoryName_{{surveyId}}">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn btn-default" data-dismiss="modal">
+            Cancel
+          </div>
+          <div class="btn btn-success" id="addCategoryDone_{{surveyId}}">Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+{{#each surveysList}}
+  <div class="modal fade" id="addquestion_{{surveyId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add a question</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Category</label>
+              <select class="form-control" id="js-categories-dropDown_{{surveyId}}">
+                {{#each categories}}
+                  <option value="{{categoryId}}">{{categoryName}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Question</label>
+              <textarea class="form-control" rows="3" id="newQuestionName_{{surveyId}}"></textarea>
+
+              <label>Score</label>
+              <input type="text" class="form-control" id="js-addQuestion-newScore_{{surveyId}}">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn btn-default" data-dismiss="modal">
+            Cancel
+          </div>
+          <div class="btn btn-success" id="addQuestionDone_{{surveyId}}" data-surveyId="{{surveyId}}">Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+{{#each surveysList}}
+  <div class="modal fade" id="editModal_{{surveyId}}" tabindex="2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Edit Survey</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" id="js-edit-Name_{{surveyId}}">
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Code</label>
+              <input type="text" class="form-control" id="js-edit-Code_{{surveyId}}">
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn btn-default" id="js-settings-deleteSurvey_{{surveyId}}" style="background-color:red">Delete</div>
+          <div class="btn btn-default" data-dismiss="modal">Cancel
+          </div>
+          <div class="btn btn-success" id="saveSurveyName_{{surveyId}}">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+{{/each}}
+
+
+{{#each surveysList}}
+  <div class="modal fade" id="editCategory__{{surveyId}}" tabindex="2" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" id="js-edit-Name1_{{surveyId}}">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="btn btn-default" style="background-color:red" onclick="deleteCategoryModal()">
+            <a href="#deleteCategoryModal"></a> Delete </div>
+          <div class="btn btn-default" data-dismiss="modal">Cancel
+          </div>
+          <div class="btn btn-success" id="saveSurveyName1_{{surveyId}}">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+{{/each}}
+
+<div class="modal fade" id="deleteCategoryModal" tabindex="3" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Delete Category</h4>
+      </div>
+      <div class="modal-body" style="display: inline-block" id="js-settings-deleteCategory-tableBody">
+
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" data-dismiss="modal" id='js-settings-deleteCategory-noDelete'>No</div>
+        <div class="btn btn-success" id='js-settings-deleteCategory-yesDelete'>Yes</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="js-settings-deleteQuestionModal" tabindex="3" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Delete Question</h4>
+      </div>
+      <div class="modal-body" id="js-settings-deleteQuestion-tableBody">
+
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" data-dismiss="modal" id='js-settings-deleteQuestion-noDelete'>No</div>
+        <div class="btn btn-success" id='js-settings-deleteQuestion-yesDelete'>Yes</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="js-settings-deleteSurveyModal" tabindex="3" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Delete Survey</h4>
+      </div>
+      <div class="modal-body" id="js-settings-deleteSurvey-tableBody">
+
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" data-dismiss="modal" id='js-settings-deleteSurvey-noDelete'>No</div>
+        <div class="btn btn-success" id='js-settings-deleteSurvey-yesDelete'>Yes</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,45 @@
+
+    {{#each productwastage}}
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading">
+            <div class="panel-title h4 row collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                 href="#collapse{{category_name}}" aria-expanded="false" aria-controls="collapse{{category_name}}">
+                <div class="col-md-6">
+                    {{category_name}}
+                </div>
+                <div class="col-md-3">Total Waste: {{wastecount}}</div>
+                <div class="col-md-3">Total Cost: ${{wastettalcost}} <i class="fa fa-chevron-right"></i></div>
+            </div>
+        </div>
+        <div id="collapse{{category_name}}" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="heading{{category_name}}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="col-md-3">{{type}}</th>
+                    <th class="col-md-3">Start Date</th>
+                    <th class="col-md-2">End Date</th>
+                    <th class="col-md-2">Waste</th>
+                    <th class="col-md-2">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each products}}
+                <tr>
+                    <td class="mytable">{{name}}
+                        <small class="adm-unit-type">{{unit_type}}</small>
+                    </td>
+                    <td class="mytable">{{start_date}}</td>
+                    <td class="mytable">{{end_date}}</td>
+                    <td class="mytable">{{productwastecount}}</td>
+                    <td class="mytable">
+                        <small>$</small>
+                        {{productwastetotalcost}}
+                    </td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/each}}

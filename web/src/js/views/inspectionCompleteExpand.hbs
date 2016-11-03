@@ -1,0 +1,43 @@
+{{#each questionsData}}
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+        <div class="panel-title h4 row collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#inspectioncat{{#slugify}}{{category_name}}{{/slugify}}" aria-expanded="false" aria-controls="timetempLog">
+                <div class="col-md-10 accordian-header">
+                                    {{category_name}}
+                </div>
+
+        </div>
+    </div>
+    <div id="inspectioncat{{#slugify}}{{category_name}}{{/slugify}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="table-container">
+            {{#if questions}}
+            <table class="table">
+                <thead>
+                    <tr class="card">
+                        <th class="col-md-5">Questions</th>
+                        <th class="col-md-5">Comments</th>
+                        <th class="col-md-2">Score</th>
+                    </tr>
+                </thead>
+                <tbody class="js-inspect-reports">
+                {{#each questions}}
+                    <tr class="card">
+                        <td class="mytable">
+                          {{#completedQuestion questionInfo question}}{{/completedQuestion}}
+                        </td>
+                        <td class="mytable">
+                        {{comments}}
+                        </td>
+                        <td class="mytable">{{result_score}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+              {{overallcomments}}
+            {{/if}}
+        </div>
+    </div>
+
+</div>
+{{/each}}

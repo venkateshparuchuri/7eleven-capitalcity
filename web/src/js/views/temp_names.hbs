@@ -1,0 +1,23 @@
+
+    {{#each products}}
+    <tr class="card js-temp-row emp-temp">
+        <td class="mytable" data-product-id="{{product_id}}" data-product-availability-id="{{product_availability_id}}">{{itemName}}</td>
+        <td class="form-group mytable">
+          {{#equaltoo status 'complete'}}
+            <input type="number" min="0" id="getTemp" value="{{#topoint}}{{temperature}}{{/topoint}}" class="form-control js-product-temp-entry js-temp-time-temp" data-product_availability-id="{{product_availability_id}}" data-temp-id="{{temp_id}}" data-product-id="{{product_id}}" disabled="true">
+            {{else}}
+            <input type="number" min="0" id="getTemp" value="{{#topoint}}{{temperature}}{{/topoint}}" class="form-control js-product-temp-entry js-temp-time-temp" data-product_availability-id="{{product_availability_id}}" data-temp-id="{{temp_id}}" data-product-id="{{product_id}}">
+          {{/equaltoo}}
+        </td>
+        <td class="form-group mytable">
+          {{#equaltoo status 'complete'}}
+            <input type="text" id="getinitials" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')" value="{{initials}}" class="form-control js-product-temp-entry js-product-temp-entry-initials" data-product-availability-id="{{product_availability_id}}" data-temp-id="{{temp_id}}" data-product-id="{{product_id}}" disabled="true">
+          {{else}}
+            <input type="text" id="getinitials" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')" value="{{initials}}" class="form-control js-product-temp-entry js-product-temp-entry-initials" data-product-availability-id="{{product_availability_id}}" data-temp-id="{{temp_id}}" data-product-id="{{product_id}}" >
+          {{/equaltoo}}
+        </td>
+        <td class="form-group mytable">
+            <span id="temp-time" class="js-product-temp-entry js-temp-time js-temp-time-field" data-product-availability-id="{{product_availability_id}}" data-temp-id="{{temp_id}}" data-product-id="{{product_id}}">{{#trimtime}}{{temp_time}}{{/trimtime}}</span>
+        </td>
+    </tr>
+    {{/each}}

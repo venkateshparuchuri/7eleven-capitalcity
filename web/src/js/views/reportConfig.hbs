@@ -1,0 +1,54 @@
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th class="col-md-3">Group names</th>
+      <th class="col-md-9">Users</th>
+    </tr>
+  </thead>
+  <tbody class="btcard">
+    {{#each report}}
+      <tr class="">
+        <td class="mytable">{{Group_Name}}<a href="#" class="js-group-delete" data-group-name="{{Group_Name}}" data-group-id="{{Group_ID}}"><i class="fa fa-trash pull-right" ></i></a></td>
+        <td class="mytable">
+          {{#arrayLength values.length 5}}
+            {{#eachItem values}}
+              <button type="button" class="btn btn-success btn--tag js-user-detatch-group" data-email-id="{{id}}" data-user_id="{{user_id}}">{{user_id}} <i class="fa fa-times-circle"></i></button>
+            {{/eachItem}}
+          {{else}}
+            {{#each values}}
+              <button type="button" class="btn btn-success btn--tag js-user-detatch-group" data-email-id="{{id}}" data-user_id="{{user_id}}">{{user_id}} <i class="fa fa-times-circle"></i></button>
+            {{/each}}
+          {{/arrayLength}}
+          <span class="dropdown">
+              <button class="btn btn-default btn--tag dropdown-toggle" type="button"
+                      id="js-addUser-group" data-group-id="{{Group_ID}}">
+                  <i class="fa fa-plus"></i> Add User
+              </button>
+          </span>
+          {{#arrayLength values.length 5}}
+          <span>.......</span><a href="#" id="js-viewMoreUsers">View All Users</a>
+          {{/arrayLength}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+  <tr class="">
+    <td class="mytable">
+      <button class="btn btn-default dropdown-toggle js-settings-addGroup" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <i class="fa fa-plus"></i> Add New Group
+      </button>
+    </td>
+    <td class="mytable">
+      <div class="form-group tab-content">
+        <div class="tab-pane " data-toggle="tab" id="addFactor-reportDiv">
+          <input type="text" min="0" id="addGroupFactor">
+          <button class="btn btn-default dropdown-toggle btn-success" type="button" id="js-settings-reports-enterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Enter
+          </button>
+        </div>
+      </div>
+
+    </td>
+  </tr>
+
+</table>

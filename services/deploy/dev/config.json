@@ -1,0 +1,18 @@
+{
+    "environment": "dev",
+    "debug": true,
+    "dbhost": "ccdb.scriptbees.com",
+    "dbname":"7eleven",
+    "dbuser":"root",
+    "dbpass":"scriptbees1$",
+    "host" : "0.0.0.0",
+    "smtpserver":"smtp.gmail.com",
+    "smtpport":587,
+    "smtpuser":"devteam7eleven@gmail.com",
+    "smtppass": "scriptbees1$",
+    "fromemail": "devteam7eleven@gmail.com",
+    "receipients": "venkat@scriptbees.com,venkatsep14@gmail.com",
+    "extracts_location": "/var/extracts/",
+    "rcv_file_location":"/var/extracts/rcv_file",
+    "lockTime":"01:30:00"
+}

@@ -1,0 +1,27 @@
+    {{#each products}}
+    <tr class="card emp-small" data-category-id="{{product_availability_id}}" data-product-id="{{product_id}}" data-waste-id="{{waste_id}}" data-unit-type="{{unit_type}}">
+        <td class="emp-ingredients mytable" data-id="{{product_id}}">{{itemName}}</td>
+        {{#equaltoo unit_type 'oz'}}
+        <td class="form-group mytable" width="100">
+            {{#equaltoo status 'complete'}}
+            <input type="number" min=0 class="form-control js-product-waste-entry-pounds" data-category-id="{{product_availability_id}}" data-product-id="{{product_id}}" data-waste-id="{{waste_id}}" value="{{no_of_pounds}}" disabled="true">
+            {{else}}
+            <input type="number" min=0 class="form-control js-product-waste-entry-pounds" data-unit-type="pounds" data-category-id="{{product_availability_id}}" data-product-id="{{product_id}}" data-waste-id="{{waste_id}}" value="{{no_of_pounds}}">
+            {{/equaltoo}}
+            <small >pounds</small>
+        </td>
+        {{else}}
+        <td class="form-group mytable"></td>
+        {{/equaltoo}}
+        <td class="form-group mytable">
+          {{#equaltoo status 'complete'}}
+            <input type="number" min=0 class="form-control js-product-waste-entry" data-unit-type="{{unit_type}}" data-category-id="{{product_availability_id}}" data-product-id="{{product_id}}" data-waste-id="{{waste_id}}" value="{{#topoint}}{{no_of_units}}{{/topoint}}" disabled="true"> {{#equaltoo unit_type 'oz'}}<small>oz</small> {{else}}
+            <small>each</small> {{/equaltoo}}
+            {{else}}
+            <input type="number" min=1 onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control js-product-waste-entry" data-unit-type="{{unit_type}}" data-category-id="{{product_availability_id}}" data-product-id="{{product_id}}" data-waste-id="{{waste_id}}" value="{{#topoint}}{{no_of_units}}{{/topoint}}"> {{#equaltoo unit_type 'oz'}}<small>oz</small> {{else}}
+            <small>each</small> {{/equaltoo}}
+          {{/equaltoo}}
+
+        </td>
+    </tr>
+    {{/each}}

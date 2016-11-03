@@ -1,0 +1,58 @@
+{{#each productInfo}}
+<form class="form-horizontal dbqadm-addnewproduct" id="js-addnewproduct-form">
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="ProductDescription">Product Description:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-ProductDescription" placeholder="Product Description" value="{{product_description}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="Storage">Storage:</label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-Storage" placeholder="Storage" value="{{storage}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="Product Type">Size:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-Size" placeholder="Size" value="{{size}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="Case">Case:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-Case" placeholder="Case" value="{{case_qty}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="Brand">Brand:</label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-Brand" placeholder="Brand" value="{{brand}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="Item">Item#:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" id="js-edit-Item" placeholder="Item" value="{{item}}" onkeypress="return blockSpecialChar(event)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="DBQ">DBQ#:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="number" class="form-control" min=1 id="js-edit-DBQ" placeholder="DBQ" value="{{dbq}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-xs-5" for="DBQ">Max_Quantity#:<span class="required-asterisk">*</span></label>
+    <div class="col-xs-4">
+      <input type="number" class="form-control" min="1" id="js-edit-max_quantity" placeholder="max_quantity" value="{{max_quantity}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-6 col-xs-6">
+      <button type="submit" class="btn btn-primary" data-Active_flag="" data-dbq_id="" data-product_type_id="" id="js-saveDbq_product">Save</button>
+      <button class="btn btn-default js-editProduct-close">Cancel</button>
+    </div>
+  </div>
+</form>
+{{/each}}

@@ -1,0 +1,14 @@
+{{#each products}}
+<tr class="card" data-id="{{product_id}}">
+    <td class="mytable">{{itemName}}</td>
+    {{#each timesanddata}} {{#equaltoo status 'complete'}}
+    <td class="form-group mytable">
+        <input type="number" min=0 onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control js-product-waste-entry" data-waste-id="{{waste_id}}" data-category-id="{{available_category_id}}" data-category-time-id="{{category_time_id}}" value="{{no_of_units}}" disabled="true">
+    </td>
+    {{else}}
+    <td class="form-group mytable">
+        <input type="number" min=0 onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control js-product-waste-entry" data-waste-id="{{waste_id}}" data-category-id="{{available_category_id}}" data-category-time-id="{{category_time_id}}" value="{{no_of_units}}">
+    </td>
+    {{/equaltoo}} {{/each}}
+</tr>
+{{/each}}

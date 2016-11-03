@@ -1,0 +1,46 @@
+ 	<div class="row" style="clear:both">
+ 		<div class="col-lg-10 col-md-10 col-sm-10" style="overflow-x:scroll;">
+ 			<table class="table">
+ 				<thead >
+ 					<tr class="js-products-head">
+ 						<th>
+ 							Item Name adfa
+ 						</th>
+					{{#each times}}
+						<th category_time_id="{{category_time_id}}" time_range="{{time_range}}"  class="timeRangeClass">
+							{{time_range}}
+						</th>
+					{{/each}}
+					</tr>
+ 				</thead>
+
+ 				<tbody class="js-products-body">
+ 					{{#each tabledata}}
+ 						<tr class="card">
+								<td  class="form-group mytable">
+	 									{{itemName}}
+	 							</td>
+	 							{{#each timesanddata}}
+									<td class="form-group mytable" id="afe">
+									{{#equaltoo status 'complete'}}
+	 										<input type="number" min=0 class="form-control js-product-waste-entry" data-waste-id="{{waste_id}}" data-category-id="{{available_category_id}}" data-category-time-id="{{category_time_id}}" data-product-id="{{../product_id}}" value="{{no_of_units}}" disabled="true">
+									{{else}}
+	 										<input type="number" min=0 class="form-control js-product-waste-entry" data-waste-id="{{waste_id}}" data-category-id="{{available_category_id}}" data-category-time-id="{{category_time_id}}" data-product-id="{{../product_id}}" value="{{no_of_units}}">
+									{{/equaltoo}}
+	 								</td>
+	 							{{/each}}
+ 						</tr>
+					{{/each}}
+ 				</tbody>
+ 			</table>
+ 		</div>
+ 	</div>
+ 	<br>
+ 	<div class="row js-roller-actions">
+        <div class="col-md-2 col-md-offset-8">
+            <button class="btn btn--dark btn-block js-product-rollerProducts-save">Save</button>
+        </div>
+        <div class="col-md-2 ">
+            <button class="btn btn--action btn-block js-product-rollerProducts-complete">Complete</button>
+        </div>
+    </div>

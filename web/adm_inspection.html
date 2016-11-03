@@ -1,0 +1,212 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <link rel="icon" href="favicon.ico">
+    <link href="dist/css/main.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- <button class="btn menu-button" style="position: absolute; z-index: 22;">Click here</button> -->
+<div class="container-fluid no-left-padding">
+
+
+    <aside class="slideInLeft animated">
+        <div class="aside--logo"><img src="images/capitalcity_logo.png" alt=""></div>
+        <ul class="aside-nav nav js-side-nav">
+            <form class="form-group storelist">
+                <select class="form-control">
+                    <option>Select a Store</option>
+                    <option>STORE 32123</option>
+                    <option>STORE 4591</option>
+                    <option>STORE 4909</option>
+                    <option>STORE 4920</option>
+                    <option>STORE 33333</option>
+                </select>
+            </form>
+            <li><a href="#">Order Management</a></li>
+            <li><a href="#" data-toggle="expand" data-target="#sub1">Reports</a>
+                <ul class="nav expand js-side-sub-nav" id="sub1">
+                    <li><a href="#" style="padding-left: 50px" class="active">Waste</a></li>
+                    <li class="active"><a href="#" style="padding-left: 50px" class="active">Inspection</a></li>
+                    <li><a href="#" style="padding-left: 50px" class="active">Anticipated Sales</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="acc-info">
+            <div class="dropdown">
+                <button class="btn btn--account dropdown-toggle" id="js-user-name" type="button" data-toggle="dropdown">
+                    <!--&dtrif;--><i class="fa fa-caret-up"></i>
+                    <small id="js-user-role"> Admin</small>
+                </button>
+                <ul class="dropdown-menu dropup">
+                    <li><a href="#" data-toggle="modal" data-target="#accountinfo">Account Info</a></li>
+                    <li><a href="#">Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <div class="modal fade" id="accountinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Your Account Information</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">Full Name</label>
+
+                            <div class="col-sm-6">
+                                <p class="form-control-static">John Milton</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">User Name</label>
+
+                            <div class="col-sm-6">
+                                <p class="form-control-static">John</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">Password</label>
+
+                            <div class="col-sm-6">
+                                <p class="form-control-static">joHn125</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">Role</label>
+
+                            <div class="col-sm-6">
+                                <p class="form-control-static">Accountant</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">Email</label>
+
+                            <div class="col-sm-6">
+                                <p class="form-control-static">john@gmail.com</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--<div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary">Update</button>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <main class="col-lg-10 col-md-9">
+
+            <header class="main--header">
+                <div class="main--title">Health Inspection: Think food safety</div>
+            </header>
+
+            <div class="main--content">
+                <div class="main--tabs">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">October <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">January</a></li>
+                                <li><a href="#">February</a></li>
+                                <li><a href="#">March</a></li>
+                                <li><a href="#">April</a></li>
+                                <li><a href="#">May</a></li>
+                                <li><a href="#">June</a></li>
+                                <li><a href="#">July</a></li>
+                                <li><a href="#">August</a></li>
+                                <li><a href="#">September</a></li>
+                                <li><a href="#">October</a></li>
+                                <li><a href="#">November</a></li>
+                                <li><a href="#">December</a></li>
+
+                            </ul>
+                            <span class="margin_left">Reports from October, 2015</span>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-md-offset-3">
+                            <button class="btn btn--action btn-block">Run Report</button>
+                        </div>
+                    </div>
+                    <div class="table--content">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Store ID</th>
+                                    <th class="">Inspected By</th>
+                                    <th class="">Store Address</th>
+                                    <th class="">Inspection Date</th>
+                                    <th class="">Score<br/>
+                                        <small>100</small>
+                                    </th>
+                                    <th class=""></th>
+                                </tr>
+                            </thead>
+                            <tbody class="js-inspection-results-body">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+
+    </div>
+</div>
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="/bower_components/handlebars/handlebars.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
+<script src="/src/js/jquerypp.js"></script>
+<script src="/src/js/interact.js"></script>
+<script src="/src/js/app.js"></script>
+<script src="/src/js/inspectionadmin.js"></script>
+
+
+<script id="inspection-result-template" type="text/x-handlebars-template">
+    {{#each inspections}}
+    <tr class="card">
+        <td class="mytable">{{store_id}}#</td>
+        <td class="mytable">{{inspector_name}}</td>
+        <td class="mytable">{{location}}</td>
+        <td class="mytable">{{inspection_date}}</td>
+        <td class="mytable">{{score}}</td>
+        <td data-inspection_id="{{id}}"><i class="fa fa-chevron-circle-right js-inspect-expand mytable"></i></td>
+    </tr>
+    {{/each}}
+</script>
+
+
+<script type="text/javascript">
+    var inspectionsTemplate = '';
+
+</script>
+
+</body>
+</html>

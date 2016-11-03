@@ -1,0 +1,32 @@
+<table class="table table-responsive">
+  <thead>
+    <tr class="card">
+      <th class="mytable col-md-3">Stores</th>
+      <th class="mytable col-md-3">Report Month</th>
+      <th class="mytable col-md-3">Report Generation Date</th>
+      <th class="mytable col-md-3">Status</th>
+    </tr>
+  </thead>
+
+  <tbody class="Adm-runreport">
+    {{#each runreport}}
+      <tr class="card">
+        <td class="mytable">{{store_id}}</td>
+        <td class="mytable">{{monthYear}}</td>
+        <td class="mytable">{{Date}}</td>
+        {{#ifCond active_flag 'true'}}
+          <td class="js-runreport mytable" data-id="{{reports_id}}" data-file_location="{{file_location}}">
+            <button type="button" class=" btn btn-success btn--tag js-runreportButton" data-storeid="{{store_id}}" data-reportdate="{{Date}}" data-id="{{reports_id}}">
+              <a href="{{apiURL}}">Download </a></button>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a><i class="fa fa-trash fa-lg js-deleteRunReport"></i></a>
+          </td>
+        {{else}}
+          <td class="mytable js-runreport" data-id="{{reports_id}}" data-file_location="{{file_location}}">
+            <span id="js-runreport">Pending</span>
+            <a><i class="fa fa-trash fa-lg js-deleteRunReport" style="padding-left: 55px"></i></a>
+          </td>
+        {{/ifCond}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

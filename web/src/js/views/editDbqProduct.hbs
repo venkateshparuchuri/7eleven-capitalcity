@@ -1,0 +1,11 @@
+<tbody class="js-productbody">
+{{#each product}}
+<tr class="editcard col-sm-5">
+    <td class="mytable" data-id="{{dbq_id}}" data-product_type_id="{{product_type_id}}" ata-Active_flag="{{Active_flag}}" data-brand="{{brand}}" data-case_qty="{{case_qty}}" data-dbq="{{dbq}}" data-item="{{item}}" data-max_quantity="{{max_quantity}}" data-product_description="{{product_description}}" data-size="{{size}}" data-storage="{{storage}}" data-type="{{type}}">
+      {{product_description}}
+      <span class="pull-right"><a class="js-edit-product edpen" href=""><i class="fa fa-pencil"></i></a>
+      <a class="js-delete-product edpen" href=""> <i class="fa fa-trash-o"></i></a></span>
+    </td>
+</tr>
+{{/each}}
+</tbody>

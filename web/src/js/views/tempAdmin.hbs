@@ -1,0 +1,13 @@
+
+ {{#each products}}
+ <tr class="card js-temp-row">
+ <td class="mytable" data-product-id="{{product_id}}" data-product_availability-id="{{product_availability_id}}">{{itemName}}
+ </td>
+ <td class="form-group mytable">{{#topoint}}{{temperature}}{{/topoint}}
+ </td>
+ <td class="form-group mytable">{{initials}}
+ </td>
+ <td class="form-group mytable">{{#trimtime}}{{temp_time}}{{/trimtime}}
+ </td>
+ </tr>
+ {{/each}}

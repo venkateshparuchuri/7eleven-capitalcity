@@ -1,0 +1,38 @@
+<table class="table table-responsive">
+  <thead style="display:block">
+    <tr>
+      <th class="col-md-3">Group names</th>
+      <th class="col-md-9" style="float: right">Stores</th>
+    </tr>
+  </thead>
+  <tbody class="btcard adm-emailconfig">
+    {{#each report}}
+      <tr class="" data-groupName="{{Group_Name}}" data-groupid= {{Group_ID}}>
+        <td class="mytable">{{Group_Name}}</td>
+        <td class="js-emaildata mytable">
+          {{#arrayLength values.length 5}}
+            {{#eachItem values}}
+              <button type="button" class=" btn btn-success btn--tag js-emailButton js-emailconfig_slot" data-id="{{id}}" data-storeid="{{store}}">Store {{store}}&nbsp<i class="fa fa-times-circle"></i></button>
+            {{/eachItem}}
+          {{else}}
+            {{#each values}}
+              <button type="button" class=" btn btn-success btn--tag js-emailButton js-emailconfig_slot" data-id="{{id}}" data-storeid="{{store}}">Store {{store}}&nbsp<i class="fa fa-times-circle"></i></button>
+            {{/each}}
+          {{/arrayLength}}
+          <button class="btn btn-default btn--tag dropdown-toggle js-adduser-email" data-store_id="{{store}}" type="button" id="dropdownMenu">
+            <i class="fa fa-plus"></i> Add Store
+          </button>
+          {{#if values.length}}
+          <button class="btn btn-default btn--tag dropdown-toggle js-admin-addEmail-send" type="button"
+                  data-store_id="{{store}}" disabled="true" data-loading-text="Loading...">
+               Resend
+          </button>
+          {{#arrayLength values.length 5}}
+          <span>.......</span><a href="#" id="js-viewMoreStore">View All Stores</a>
+          {{/arrayLength}}
+        {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

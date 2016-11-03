@@ -1,0 +1,17 @@
+{{#each surveysList}}
+
+  <tr class="card js-inspection-details" data-inspectionid="{{survey_result_id}}" data-status="{{status1}}" data-inspectioncomments="{{survey_overall_comments}}" style="cursor:pointer;cursor:hand;" onclick="surveyCategoriesTabs({{survey_result_id}},'{{status}}',{{score}})">
+    <td class="mytable">{{store_id}}#</td>
+    <td class="mytable">{{inspector_name}}</td>
+    <td class="mytable">{{location}}</td>
+    <td class="mytable" data-survey-date="{{survey_date}}">
+      {{#datetostring}}{{survey_date}}{{/datetostring}}
+    </td>
+    <td class="mytable">{{score}}</td>
+    <td class="mytable">
+      {{#statusdisplay}}{{status}}{{/statusdisplay}}
+    </td>
+    <td class="js-inspection-details mytable" data-inspectionid="{{survey_result_id}}"><a href="#" data-inspectionid="{{survey_result_id}}" class="js-inspection-details"><i data-inspectionid="{{survey_result_id}}"  class="fa fa-2x fa-chevron-circle-right js-inspection-details"></i></td>
+    </tr>
+
+    {{/each}}

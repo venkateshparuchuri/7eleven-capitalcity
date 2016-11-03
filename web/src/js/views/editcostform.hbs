@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label>Item Name</label>
+    <div class="form-control">
+      <label>{{itemName}}</label>
+    </div>
+    <input type="hidden" class="form-control" id="itemId" name="itemId" value="{{itemId}}">
+</div>
+<div class="form-group">
+    <label>Item Cost</label>
+    <input type="number" class="form-control" id="cost" min="0" name="cost">
+</div>
+<div class="form-group">
+    <label>Effective Date</label>
+    <div class="input-group date--picker date-pick" id="effectiveDatePicker">
+        <input type="text" readonly="readonly" class="form-control" id="effectiveDate" name="effectiveDate">
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>
+</div>

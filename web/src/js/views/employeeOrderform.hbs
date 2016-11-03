@@ -1,0 +1,28 @@
+<thead>
+<th>Item Name</th>
+<th>Size or Units</th>
+<th>Order Qty</th>
+<th>Total</th>
+</thead>
+<tbody class="js-productbody">
+{{#each products}}
+<tr class="card">
+    <td class="orderlimit mytable" data-id="{{product_id}}">{{itemName}} <p>(1 Case = {{case_qty}})</p></td>
+    <td class="orderlimit mytable"><p>{{size}}</td>
+   {{#equaltoo status 'completed'}}
+    <td class="form-group orderlimit mytable">
+        <input type="number" min=1 max="{{max_quantity}}" data-cases="{{case_qty}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control js-product-waste-entry" data-dbqo_id="{{dbqo_id}}"  data-dbqp_id="{{dbqp_id}}" data-product-id="{{product_id}}" value="{{no_of_units}}" disabled="true">
+        <p>/{{max_quantity}}</p>
+    </td>
+    {{else}}
+    <td class="form-group orderlimit mytable">
+        <input type="number" min=1 max="{{max_quantity}}" data-cases="{{case_qty}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control js-product-waste-entry" data-max_quantity="{{max_quantity}}" data-dbqp_id="{{dbqp_id}}" data-dbq_id="{{dbqo_id}}"  data-product-id="{{product_id}}" value="{{no_of_units}}">
+        <p>/{{max_quantity}}</p>
+    </td>
+    {{/equaltoo}}
+    <td class="form-group orderlimit js-totalOrder mytable">
+        <p>{{total}}</p>
+    </td>
+</tr>
+{{/each}}
+</tbody>

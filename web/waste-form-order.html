@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link rel="icon" href="../../favicon.ico">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,400italic,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
+
+  <title>Login</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="dist/css/main.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<div class="page-container">
+    <!-- body -->
+    <div class="container-fluid">
+        <div class="row row-offcanvas row-offcanvas-left">
+
+            <!-- sidebar -->
+            <div class="col-lg-2 col-md-2 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation" style="background-color: #FFFFFF; height: 100%">
+                <ul class="nav">
+                    <div style="padding: 20px 35px">
+                        <img src="images/capitalcity_logo.png" class="img-circle img-responsive"  style="background-color: rgba(151, 156, 155, 0.39)"><br/><br/><br/>
+                    </div>
+                    <li><a href="#" id="js-ordermanage">Order Management</a></li>
+                    <li><a href="#" data-toggle="expand" data-target="#sub1">Reports</a>
+                        <ul class="nav expand" id="sub1">
+                            <li><a href="#" style="padding-left: 50px" class="active">Waste</a></li>
+                            <li><a href="#" style="padding-left: 50px">Temperature</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Inspection</a></li>
+                    <li><a href="#">Anticipated Sales</a></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><br/></li>
+                    <li><a href="#"><span id="js-user-name"></span><small>Employee</small></a></li>
+                    <br/><br/><br/><br/>
+                </ul>
+            </div>
+            <!-- sidebar end -->
+
+            <!-- main area -->
+            <div class="col-lg-10 col-md-10 col-sm-9">
+                <div class="row" style="min-height:800px;">
+                  <iframe id="js-order-management-site" style="min-height:760px;min-width:1200px;" frameBorder="0"></iframe>
+                </div>
+
+            </div><!-- /.col-xs-12 main -->
+        </div><!--/.row-->
+    </div><!--/body end-->
+</div><!--/.page-container-->
+
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="/bower_components/handlebars/handlebars.js"></script>
+<script src="/src/js/jquerypp.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#js-user-name').text($.cookie('user').username);
+  $('#js-user-role').text($.cookie('user').role.toUpperCase());
+  $('#js-today-date').text(new Date());
+
+  $('#js-ordermanage').click(function(ev){
+      ev.preventDefault();
+      var ifrm = document.getElementById('js-order-management-site');
+      ifrm.style.width = '700px'; // set width
+      ifrm.src = 'https://shop.benekeith.com/#/register/'; // set src to new url
+      setTimeout(function(){
+        // using reference to iframe (ifrm) obtained above
+        var win = ifrm.contentWindow; // reference to iframe's window
+        // reference to document in iframe
+        var doc = ifrm.contentDocument? ifrm.contentDocument: ifrm.contentWindow.document;
+        // reference to form named 'demoForm' in iframe
+        var form = doc.getElementsByName('loginForm')[0];
+        console.log(form);
+        console.log(form.elements['username']);
+        form.elements['username'].value='kp@ok7-eleven.com';
+        form.elements['password'].value='Passw0rd';
+        form.submit();
+      },2000);
+  });
+
+});
+
+
+
+</script>
+
+</body>
+</html>

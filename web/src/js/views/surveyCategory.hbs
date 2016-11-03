@@ -1,0 +1,13 @@
+<ul class="scroll_tabs_theme_light" id="survey-category-tabs">
+    {{#each tabsData}}
+
+        <li>
+           <a href="#ctab_{{category_id}}" id="ctabId_{{category_id}}" data-toggle="tab" onclick="updateCategoryQuestions({{category_id}})" data-category-name="{{category_name}}">{{category_name}}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </li>
+    {{/each}}
+    <li>
+    		<a href="#ctab_comments_tab" id="tabId_commentsTab" data-toggle="tab" onclick="commentsTab()" >Overall Comments&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    	</li>
+    </ul>
+    <div id="survey-category-content"></div>
+    <div id="survey-comments-content"></div>

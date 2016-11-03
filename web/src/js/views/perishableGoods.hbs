@@ -1,0 +1,19 @@
+{{#each products}}
+<tr class="card">
+<td class="form-group mytable">{{product_name}}</td>
+  {{#each data}}
+    {{#if average}}
+   <td class="form-group mytable">
+     <input type="number" value="{{average}}" readonly="readonly">
+     </td>
+   {{else}}
+   <td class="form-group mytable">
+     <input type="number" value="0" readonly="readonly">
+   </td>
+   {{/if}}
+  {{/each}}
+  <td class="form-group mytable js-anticipatedTotal">
+    <input type="number" value="{{average}}" readonly="readonly" style="background-color: #00FF7F">
+    </td>
+</tr>
+{{/each}}

@@ -1,0 +1,19 @@
+{{#each response}}
+  <tr class="card">
+    <td class="mytable" data-product-id="{{product_id}}" data-parent-id="{{product_parent_id}}">{{product_name}}</td>
+    <td class="form-group mytable">
+      <input type="number" class="form-control" data-product_id="{{product_id}}" value="{{anticipated_sale}}" disabled="true">
+    </td>
+    <td class="form-group mytable">
+      <input type="number" class="form-control" data-product_id="{{product_id}}" value="{{historical_waste}}" disabled="true">
+    </td>
+    {{#each timesanddata}}
+        <td class="form-group mytable">
+          <input type="number" min=0 class="form-control" data-pullid="{{pull_id}}" data-pull_time="{{pull_time}}" data-time_range="{{time_range}}" value="{{pull_value}}" disabled="true">
+        </td>
+    {{/each}}
+    <td class="form-group mytable">
+      <input type="number" class="form-control" data-pull_id="{{pull_id}}" data-pull_time="{{pull_time}}" data-time_range="{{time_range}}" value="{{#eachArray timesanddata}}{{ret}}{{/eachArray}}" disabled="true">
+    </td>
+  </tr>
+{{/each}}

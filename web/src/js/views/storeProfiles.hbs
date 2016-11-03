@@ -1,0 +1,57 @@
+{{#each stores}}
+<tr class="">
+  <td class="mytable">{{store_id}}</td>
+  <td class="mytable">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-7">Capital City</div>
+            <div class="onoffswitch col-sm-1">
+            {{#storeProfileExist profiles 'cc'}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox cc" id="myonoffswitch{{store_id}}cc" checked="true" data-store-id="{{store_id}}" value="cc">
+            {{else}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox cc" id="myonoffswitch{{store_id}}cc" data-store-id="{{store_id}}" value="cc">
+            {{/storeProfileExist}}
+            <label class="onoffswitch-label" for="myonoffswitch{{store_id}}cc"></label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-8">Perishable Goods</div>
+            <div class="onoffswitch col-sm-1">
+            {{#storeProfileExist profiles 'pg'}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox pg" id="myonoffswitch{{store_id}}pg" checked="true" data-store-id="{{store_id}}" value="pg">
+            {{else}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox pg" id="myonoffswitch{{store_id}}pg" data-store-id="{{store_id}}" value="pg">
+            {{/storeProfileExist}}
+            <label class="onoffswitch-label" for="myonoffswitch{{store_id}}pg"></label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-sm-8">Roller Grills
+            {{#storeProfileExist profiles 'rg'}}
+            <button class="btn btn-default btn--tag js-level-storeProfile"  data-store-id="{{store_id}}"><span>{{#each profiles}}{{#if level_name}}{{level_name}}{{/if}}{{/each}}
+              <i class="fa fa-pencil"></i>
+            </span></button>
+            {{/storeProfileExist}}
+          </div>
+
+          <div class="onoffswitch col-sm-1">
+            {{#storeProfileExist profiles 'rg'}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox rg" id="myonoffswitch{{store_id}}rg" checked="true" data-store-id="{{store_id}}" value="rg">
+
+            {{else}}
+              <input type="checkbox" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox rg" id="myonoffswitch{{store_id}}rg" data-store-id="{{store_id}}" value="rg">
+            {{/storeProfileExist}}
+            <label class="onoffswitch-label" for="myonoffswitch{{store_id}}rg"></label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+{{/each}}

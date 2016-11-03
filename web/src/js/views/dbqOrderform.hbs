@@ -1,0 +1,22 @@
+<tbody class="js-productbody">
+  {{#each products}}
+    <tr class="card">
+      <td class="mytable">{{product_description}}</td>
+      {{#ifCond Active_flag 'true'}}
+        <td class="mytable">
+          <div class="onoffswitch col-sm-1">
+            <input type="checkbox" data-id="{{dbq_id}}" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox" checked="true">
+            <label class="onoffswitch-label js-dbqOnOffLabel"></label>
+          </div>
+        </td>
+      {{else}}
+        <td class="mytable">
+          <div class="onoffswitch col-sm-1">
+            <input type="checkbox" data-id="{{dbq_id}}" name="onoffswitch" class="js-store-profile-switch-box onoffswitch-checkbox">
+            <label class="onoffswitch-label js-dbqOnOffLabel"></label>
+          </div>
+        </td>
+      {{/ifCond}}
+    </tr>
+  {{/each}}
+</tbody>

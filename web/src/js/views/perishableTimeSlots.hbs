@@ -1,0 +1,22 @@
+
+    <th>Item Name
+        <br/>
+    </th>
+    {{#each dates}}
+    <th class="js-perishableData">
+      <div>
+      <small>
+        {{#getTheWeek day}}
+      {{week}}
+      {{/getTheWeek}}
+    </small>
+        <br/>
+        <small>{{day}}</small></div>
+    </th>
+    {{/each}}
+    <th>
+    <div style="background-color: #00FF7F">
+      Sum of
+Selected
+Days</div>
+    </th>

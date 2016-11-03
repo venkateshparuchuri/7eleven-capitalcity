@@ -1,0 +1,9 @@
+   <ul class="nav nav-tabs" id="emp-survey-tabs">
+    {{#each surveyList}}
+
+        <li>
+           <a href="#tab_{{surveyId}}" id="tabId_{{surveyId}}" data-surveyId="{{surveyId}}" data-toggle="tab" onclick="updateSurvey({{surveyId}},'{{surveyName}}')" data-surveyName="{{surveyName}}">{{surveyName}}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </li>
+    {{/each}}
+
+    </ul>

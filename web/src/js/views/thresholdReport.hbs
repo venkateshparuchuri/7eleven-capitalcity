@@ -1,0 +1,8 @@
+{{#each products}}
+<tr class="card" data-threshold="{{thresholdValue}}">
+  <td class="mytable">{{name}}</td>
+  {{#each values}}
+    <td class="mytable" style="{{#thresholdhighlight}}{{value}}-{{thresholdValue}}{{/thresholdhighlight}}; padding-left: 0px"> {{value}} </td>
+  {{/each}}
+</tr>
+{{/each}}
